@@ -4,9 +4,55 @@
   const menu = document.getElementById('spellbook-menu');
   const toast = document.getElementById('spellbook-toast');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const home = document.getElementById('home');
+  const homeSigil = document.querySelector('.home-sigil');
+  const homeMagic = document.getElementById('home-magic');
   let busy = false;
   let summoning = false;
   let toastTimer;
+  let lastTrail = 0;
+
+  function spark(x, y, burst = false) {
+    if (reducedMotion.matches) return;
+    const count = burst ? 9 : 1;
+    for (let i = 0; i < count; i++) {
+      const mote = document.createElement('span');
+      const angle = burst ? (Math.PI * 2 * i / count) : (Math.random() * Math.PI * 2);
+      const distance = burst ? 42 + Math.random() * 40 : 10 + Math.random() * 18;
+      mote.className = 'cast-spark';
+      mote.style.left = `${x}px`;
+      mote.style.top = `${y}px`;
+      mote.style.setProperty('--spark-x', `${Math.cos(angle) * distance}px`);
+      mote.style.setProperty('--spark-y', `${Math.sin(angle) * distance}px`);
+      mote.style.setProperty('--spark-size', `${burst ? 3 + (i % 3) : 2}px`);
+      document.body.append(mote);
+      setTimeout(() => mote.remove(), 850);
+    }
+  }
+
+  if (homeMagic && !reducedMotion.matches) {
+    for (let i = 0; i < 17; i++) {
+      const mote = document.createElement('span');
+      mote.className = 'home-magic__mote';
+      mote.style.left = `${6 + (i * 57) % 89}%`;
+      mote.style.top = `${9 + (i * 37) % 76}%`;
+      mote.style.animationDelay = `-${(i % 7) * .72}s`;
+      mote.style.animationDuration = `${3.5 + (i % 5) * .65}s`;
+      homeMagic.append(mote);
+    }
+    home.addEventListener('pointermove', event => {
+      if (home.hidden || event.pointerType !== 'mouse') return;
+      const bounds = homeSigil.getBoundingClientRect();
+      homeSigil.style.setProperty('--tilt-x', `${Math.max(-13, Math.min(13, (event.clientX - bounds.left - bounds.width / 2) / 14))}deg`);
+      homeSigil.style.setProperty('--tilt-y', `${Math.max(-13, Math.min(13, (bounds.top + bounds.height / 2 - event.clientY) / 14))}deg`);
+      if (Date.now() - lastTrail > 95) { spark(event.clientX, event.clientY); lastTrail = Date.now(); }
+    });
+    home.addEventListener('pointerleave', () => {
+      homeSigil.style.setProperty('--tilt-x', '0deg');
+      homeSigil.style.setProperty('--tilt-y', '0deg');
+    });
+    home.addEventListener('pointerdown', event => { if (!home.hidden) spark(event.clientX, event.clientY, true); });
+  }
 
   const remember = (key, value) => {
     try { sessionStorage.setItem(key, value ? '1' : '0'); } catch {}
@@ -29,10 +75,13 @@
   const setLumos = enabled => {
     document.body.classList.toggle('lumos-active', enabled);
     remember('cedrai-lumos', enabled);
-    const button = document.querySelector('[data-spell="lumos"]');
+    const button = document.querySelector('.spellbook__menu [data-spell="lumos"]');
     button.querySelector('strong').textContent = enabled ? 'Nox' : 'Lumos';
     button.querySelector('small').textContent = enabled ? 'Let the shadows return' : 'Illuminate the archive';
     button.setAttribute('aria-pressed', String(enabled));
+    if (homeSigil) { homeSigil.setAttribute('aria-label', enabled ? 'Cast Nox' : 'Cast Lumos'); homeSigil.setAttribute('aria-pressed', String(enabled)); }
+    const heroCast = document.querySelector('.hero-cast');
+    if (heroCast) { heroCast.querySelector('.hero-cast__label').textContent = enabled ? 'CAST NOX' : 'CAST LUMOS'; heroCast.setAttribute('aria-pressed', String(enabled)); }
   };
   const setRevelio = enabled => {
     document.body.classList.toggle('revelio-active', enabled);
@@ -52,7 +101,7 @@
     gate.classList.add('is-visible');
     setTimeout(() => {
       action();
-      if (!leaving) setTimeout(() => { gate.classList.remove('is-visible'); busy = false; }, 470);
+      if (!leaving) setTimeout(() => { gate.classList.remove('is-visible'); busy = false; }, 320);
     }, 420);
     if (leaving) setTimeout(() => { gate.classList.remove('is-visible'); busy = false; }, 1800);
   };
@@ -93,10 +142,14 @@
       if (spell === 'lumos') {
         const enabled = !document.body.classList.contains('lumos-active');
         setLumos(enabled);
+        const source = spellButton.getBoundingClientRect();
+        spark(source.left + source.width / 2, source.top + source.height / 2, true);
         announce(enabled ? 'Lumos — the archive is illuminated.' : 'Nox — the shadows return.');
       } else if (spell === 'revelio') {
         const enabled = !document.body.classList.contains('revelio-active');
         setRevelio(enabled);
+        const source = spellButton.getBoundingClientRect();
+        spark(source.left + source.width / 2, source.top + source.height / 2, true);
         announce(enabled ? 'Revelio — invisible ink revealed.' : 'Finite — hidden again.');
       } else if (spell === 'accio') {
         summonNote();
