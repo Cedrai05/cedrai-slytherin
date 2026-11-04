@@ -7,7 +7,7 @@ function setNavigation(id, post, label) {
   const link = document.getElementById(id);
   if (!post) { link.hidden = true; return; }
   link.href = `blog.html?post=${encodeURIComponent(post.slug)}`;
-  link.innerHTML = `<small>${label}</small><strong>${escapeHtml(displayTitle(post))}</strong><span>✧</span>`;
+  link.innerHTML = `<small>${label}</small><strong lang="${/[가-힣]/.test(displayTitle(post)) ? 'ko' : 'en'}">${escapeHtml(displayTitle(post))}</strong><span>✧</span>`;
 }
 async function init() {
   try {
