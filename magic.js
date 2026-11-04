@@ -12,6 +12,7 @@
   let summoning = false;
   let toastTimer;
   let lastTrail = 0;
+  let guardian;
   const inertWhileOpen = [];
 
   function spark(x, y, burst = false) {
@@ -77,6 +78,21 @@
     toast.hidden = false;
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => { toast.hidden = true; }, 2900);
+  };
+  window.castPatronus = () => {
+    closeMenu();
+    const center = { x: innerWidth / 2, y: innerHeight * .47 };
+    spark(center.x, center.y, true);
+    announce('Expecto Patronum — a silver guardian answers.');
+    guardian?.remove();
+    if (reducedMotion.matches) return;
+    guardian = document.createElement('div');
+    guardian.className = 'patronus-flight';
+    guardian.setAttribute('aria-hidden', 'true');
+    guardian.innerHTML = `<span class="patronus-flight__halo"></span><svg viewBox="0 0 260 170"><path class="patronus-flight__wing patronus-flight__wing--left" d="M130 91C96 45 49 27 10 47c38 13 58 48 86 62 16 8 28 3 34-5Z"/><path class="patronus-flight__wing patronus-flight__wing--right" d="M130 91c34-46 81-64 120-44-38 13-58 48-86 62-16 8-28 3-34-5Z"/><path d="M110 91c-2-16-5-25-10-38l17 10q13-9 26 0l17-10c-5 13-8 22-10 38 6 27-4 49-20 63-16-14-26-36-20-63Z"/><path d="M116 103q14 10 28 0m-30 15q16 12 32 0M126 95l4 6 4-6" fill="none"/><circle class="patronus-flight__eyes" cx="119" cy="83" r="2.8"/><circle class="patronus-flight__eyes" cx="141" cy="83" r="2.8"/></svg><span class="patronus-flight__ribbon">EXPECTO PATRONUM</span><i class="patronus-flight__mote"></i><i class="patronus-flight__mote"></i><i class="patronus-flight__mote"></i><i class="patronus-flight__mote"></i>`;
+    document.body.append(guardian);
+    const current = guardian;
+    setTimeout(() => { current.remove(); if (guardian === current) guardian = null; }, 3150);
   };
   const setLumos = enabled => {
     document.body.classList.toggle('lumos-active', enabled);
@@ -170,6 +186,8 @@
         announce(enabled ? 'Revelio — invisible ink revealed.' : 'Finite — hidden again.');
       } else if (spell === 'accio') {
         summonNote();
+      } else if (spell === 'patronus') {
+        window.castPatronus();
       }
       return;
     }

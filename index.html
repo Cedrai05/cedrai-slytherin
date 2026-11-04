@@ -21,12 +21,13 @@
       if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('map-loading');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=dock-8">
-  <link rel="stylesheet" href="houses.css?v=dock-8">
-  <link rel="stylesheet" href="dock.css?v=dock-8">
-  <script src="houses.js?v=dock-8" defer></script>
-  <script src="magic.js?v=dock-8" defer></script>
-  <script src="app.js?v=dock-8" defer></script>
+  <link rel="stylesheet" href="style.css?v=enchanted-9">
+  <link rel="stylesheet" href="houses.css?v=enchanted-9">
+  <link rel="stylesheet" href="dock.css?v=enchanted-9">
+  <link rel="stylesheet" href="enchanted.css?v=enchanted-9">
+  <script src="houses.js?v=enchanted-9" defer></script>
+  <script src="magic.js?v=enchanted-9" defer></script>
+  <script src="app.js?v=enchanted-9" defer></script>
 </head>
 <body>
   <div class="spell-gate" id="spell-gate" aria-hidden="true"><div class="spell-gate__scene" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="spell-gate__rune">✧</div><span class="spell-gate__name" id="spell-gate-name">Revelio</span><small id="spell-gate-caption">기록을 펼치는 중</small></div>
@@ -82,7 +83,7 @@
       <section class="panel home-panel" id="home" data-page="home" hidden>
         <div class="panel-head"><span>THE <span data-house-name>SLYTHERIN</span> ARCHIVE</span><span>CHAPTER 00 / THE MAP</span></div>
         <div class="home-intro">
-          <div class="home-magic" id="home-magic" aria-hidden="true"></div>
+          <div class="home-magic" id="home-magic" aria-hidden="true"><div class="enchanted-candles"><span class="floating-candle" style="--c-x:8%;--c-y:8%;--c-delay:-1s;--c-scale:.8"><i></i></span><span class="floating-candle" style="--c-x:29%;--c-y:32%;--c-delay:-3.6s;--c-scale:.65"><i></i></span><span class="floating-candle" style="--c-x:66%;--c-y:0%;--c-delay:-2s;--c-scale:.95"><i></i></span><span class="floating-candle" style="--c-x:91%;--c-y:30%;--c-delay:-4.7s;--c-scale:.72"><i></i></span></div></div>
           <div class="home-intro__copy"><p class="overline">THE MAP HAS OPENED</p><h1>비밀은 언제나<br><em>흔적을 남긴다.</em></h1><p>안녕하세요, Cédrai입니다. 컴퓨터공학을 전공하며 보안과 디지털 포렌식을 공부하고 있습니다. 이곳에 활동과 공부의 흔적을 모았습니다.</p><div class="home-intro__marks"><span>COMPUTER SCIENCE</span><i>✦</i><span>DIGITAL FORENSICS</span></div><button class="hero-cast" data-spell="lumos" type="button"><span class="hero-cast__label">CAST LUMOS</span><i aria-hidden="true">✧</i></button></div>
           <button class="home-sigil" type="button" data-spell="lumos" aria-label="Cast Lumos"><span class="home-sigil__halo" aria-hidden="true"></span><span class="home-sigil__ring" aria-hidden="true"><span>✦</span><b>C</b><small>ARCANA · CÉDRAI · 2026</small></span><span class="home-sigil__orbit" aria-hidden="true">✧</span><span class="home-sigil__hint" aria-hidden="true">TOUCH TO CAST LUMOS</span></button>
         </div>
@@ -117,7 +118,7 @@
         <button class="spellbook__close" type="button" aria-label="주문서 닫기">×</button>
         <div class="spellbook__heading"><span>THE BOOK OF SPELLS</span><small>한 장을 골라 주문을 외워보세요.</small></div>
 <nav class="spell-nav" id="mobile-nav" aria-label="주문으로 장 이동"><div class="spell-nav__intro"><span>THE INCANTATION INDEX</span><p>주문을 입력하거나 골라서 다음 장을 펼쳐보세요.</p></div><form id="spell-form" class="spell-nav__form"><label for="spell-input">YOUR INCANTATION</label><div><input id="spell-input" type="text" placeholder="Revelio, Accio, Aparecium…" autocomplete="off" spellcheck="false"><button type="submit" aria-label="주문 외우기">↗</button></div><small id="spell-feedback" role="status" aria-live="polite">Revelio · Accio · Aparecium · Tempus · Lumos · Alohomora</small></form><div class="spell-nav__list"><button data-panel="home"><span>00 · THE MAP</span><strong>Finite</strong><small>지도로 돌아가기</small></button><button data-panel="about"><span>01 · PROFILE</span><strong>Revelio</strong><small>숨겨진 소개 펼치기</small></button><button data-panel="work"><span>02 · WORK</span><strong>Accio</strong><small>활동 기록 불러오기</small></button><button data-panel="journal"><span>03 · BLOG / JOURNAL</span><strong>Aparecium</strong><small>기록의 잉크 드러내기</small></button><button data-panel="calendar"><span>04 · CALENDAR</span><strong>Tempus</strong><small>시간의 페이지 넘기기</small></button><button data-panel="now"><span>05 · NOW</span><strong>Lumos</strong><small>지금의 이야기 비추기</small></button><button data-panel="contact"><span>06 · CONTACT</span><strong>Alohomora</strong><small>편지의 길 열기</small></button></div></nav>
-        <div class="spellbook__charms"><span>SMALL CHARMS</span><div class="spellbook__charms-list"><button type="button" data-spell="lumos"><strong>Lumos</strong><small>아카이브에 빛 밝히기</small></button><button type="button" data-spell="revelio"><strong>Revelio</strong><small>숨겨진 통로 드러내기</small></button><button type="button" data-spell="accio"><strong>Accio</strong><small>무작위 기록 불러오기</small></button></div></div>
+        <div class="spellbook__charms"><span>SMALL CHARMS</span><div class="spellbook__charms-list"><button type="button" data-spell="lumos"><strong>Lumos</strong><small>아카이브에 빛 밝히기</small></button><button type="button" data-spell="revelio"><strong>Revelio</strong><small>숨겨진 통로 드러내기</small></button><button type="button" data-spell="accio"><strong>Accio</strong><small>무작위 기록 불러오기</small></button><button type="button" data-spell="patronus"><strong>Expecto Patronum</strong><small>은빛 수호자 부르기</small></button></div></div>
       </div>
       <p class="spellbook__toast" id="spellbook-toast" role="status" aria-live="polite" hidden></p>
     </div>

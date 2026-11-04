@@ -79,6 +79,11 @@ $('#spell-form').addEventListener('submit', event => {
   event.preventDefault();
   const input = $('#spell-input');
   const cast = input.value.trim().toLocaleLowerCase().replace(/[^a-z]/g, '');
+  if (cast === 'expectopatronum') {
+    input.value = '';
+    window.castPatronus?.();
+    return;
+  }
   const destinations = { finite:'home', hominumrevelio:'about', revelio:'about', accio:'work', aparecium:'journal', tempus:'calendar', lumos:'now', alohomora:'contact' };
   const page = destinations[cast];
   if (!page) {
@@ -107,7 +112,7 @@ if (pages.has(initialPage) || wasEntered) {
 function renderPosts() {
   const search = $('#post-search').value.trim().toLocaleLowerCase();
   const list = content.posts.filter(post => (activeFilter === 'all' || (activeFilter === 'tech' ? post.category === '블로그/기술문서' : post.category === activeFilter)) && (`${post.title} ${displayTitle(post)} ${post.category} ${post.summary || ''}`).toLocaleLowerCase().includes(search));
-  $('#post-list').innerHTML = list.length ? list.slice(0, visiblePosts).map((post,index) => `<a class="post-row" href="blog.html?post=${encodeURIComponent(post.slug)}" aria-label="Read ${escapeHtml(displayTitle(post))}"><span class="post-index">${String(index+1).padStart(2,'0')}</span><span class="post-text"><small>${escapeHtml(displayCategory(post.category))} · ${escapeHtml(post.date)}</small><strong lang="${/[가-힣]/.test(displayTitle(post)) ? 'ko' : 'en'}">${escapeHtml(displayTitle(post))}</strong></span><span class="post-arrow">↗</span></a>`).join('') : '<div class="empty-posts">No matching notes.</div>';
+  $('#post-list').innerHTML = list.length ? list.slice(0, visiblePosts).map((post,index) => `<a class="post-row" style="--ink-order:${index % 8}" href="blog.html?post=${encodeURIComponent(post.slug)}" aria-label="Read ${escapeHtml(displayTitle(post))}"><span class="post-index">${String(index+1).padStart(2,'0')}</span><span class="post-text"><small>${escapeHtml(displayCategory(post.category))} · ${escapeHtml(post.date)}</small><strong lang="${/[가-힣]/.test(displayTitle(post)) ? 'ko' : 'en'}">${escapeHtml(displayTitle(post))}</strong></span><span class="post-arrow">↗</span></a>`).join('') : '<div class="empty-posts">No matching notes.</div>';
   $('#post-count').textContent = `${list.length} public notes`;
   $('#more-posts').hidden = list.length <= visiblePosts;
 }

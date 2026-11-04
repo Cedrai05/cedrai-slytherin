@@ -47,6 +47,11 @@ document.getElementById('spell-form').addEventListener('submit', event => {
   event.preventDefault();
   const input = document.getElementById('spell-input');
   const cast = input.value.trim().toLocaleLowerCase().replace(/[^a-z]/g, '');
+  if (cast === 'expectopatronum') {
+    input.value = '';
+    window.castPatronus?.();
+    return;
+  }
   const destinations = { finite:'home', revelio:'about', accio:'work', aparecium:'journal', tempus:'calendar', lumos:'now', alohomora:'contact' };
   const destination = destinations[cast];
   if (!destination) {
