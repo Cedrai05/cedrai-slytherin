@@ -13,14 +13,19 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <script>
     try {
+      const house = localStorage.getItem('cedrai-house');
+      document.documentElement.dataset.house = ['slytherin','gryffindor','ravenclaw','hufflepuff'].includes(house) ? house : 'slytherin';
       if (!location.hash && sessionStorage.getItem('cedrai-entered') !== '1' && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('map-loading');
     } catch {
+      document.documentElement.dataset.house = 'slytherin';
       if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('map-loading');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=incantations-3">
-  <script src="magic.js?v=incantations-3" defer></script>
-  <script src="app.js?v=incantations-3" defer></script>
+  <link rel="stylesheet" href="style.css?v=houses-4">
+  <link rel="stylesheet" href="houses.css?v=houses-4">
+  <script src="houses.js?v=houses-4" defer></script>
+  <script src="magic.js?v=houses-4" defer></script>
+  <script src="app.js?v=houses-4" defer></script>
 </head>
 <body>
   <div class="spell-gate" id="spell-gate" aria-hidden="true"><div class="spell-gate__scene" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="spell-gate__rune">✧</div><span class="spell-gate__name" id="spell-gate-name">Revelio</span><small id="spell-gate-caption">기록을 펼치는 중</small></div>
@@ -64,21 +69,21 @@
   </div>
   <section class="entrance" id="entrance" aria-labelledby="entrance-title">
     <div class="entrance-wash" aria-hidden="true"></div>
-    <div class="entrance-top"><span>CÉDRAI / PERSONAL ARCHIVE</span><span>SLYTHERIN · EST. 2025</span></div>
+    <div class="entrance-top"><span>CÉDRAI / PERSONAL ARCHIVE</span><div data-house-picker></div></div>
     <div class="archway" aria-hidden="true"><div class="archway-inner"><div class="archway-crest"><svg viewBox="0 0 100 130"><path d="M50 5 89 17v46c0 27-18 47-39 61C29 110 11 90 11 63V17Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M50 12 82 22v40c0 22-13 39-32 52-19-13-32-30-32-52V22Z" fill="none" stroke="currentColor" stroke-opacity=".48"/><path d="M29 46c8-11 33-13 40-1 7 13-8 22-20 23-18 2-21 11-15 16 9 7 25 0 34-6-3 15-23 24-37 17-14-7-13-26-1-33 9-5 25-3 28-12 2-8-15-10-29-4Z" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><circle cx="67" cy="42" r="1.5" fill="currentColor"/></svg></div></div></div>
     <div class="entrance-copy"><p class="overline">BEHIND THE STONE WALL</p><h1 id="entrance-title">The hidden<br><em>archive.</em></h1><p>흔적을 따라, 숨겨진 기록을 펼쳐보세요.</p><button id="enter-button" class="enter-button" type="button"><span class="enter-button__sigil" aria-hidden="true">✦</span><span class="enter-button__words"><small>CAST ALOHOMORA</small><strong>OPEN THE ARCHIVE</strong></span><span class="enter-button__arrow" aria-hidden="true">↗</span></button><span class="entrance-note">PRESS TO ENTER</span></div>
-    <div class="entrance-bottom"><span>UNDER THE LAKE</span><span>01 — 06</span></div>
+    <div class="entrance-bottom"><span data-house-location>UNDER THE LAKE</span><span>01 — 06</span></div>
   </section>
 
   <div id="app-shell" hidden>
     <header class="site-header">
       <button class="brand" type="button" data-panel="home" aria-label="Cédrai home"><span class="brand-symbol">C</span><span>CÉDRAI<small>THE HIDDEN ARCHIVE</small></span></button>
-      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="주문 메뉴 열기"><span class="menu-toggle__star" aria-hidden="true">✦</span><span>CAST A SPELL</span><span class="menu-toggle__arrow" aria-hidden="true">⌄</span></button>
+      <div class="header-actions"><div data-house-picker></div><button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="주문 메뉴 열기"><span class="menu-toggle__star" aria-hidden="true">✦</span><span>CAST A SPELL</span><span class="menu-toggle__arrow" aria-hidden="true">⌄</span></button></div>
     </header>
     <nav class="mobile-nav" id="mobile-nav" aria-label="주문으로 장 이동" hidden><div class="spell-nav__intro"><span>THE INCANTATION INDEX</span><p>주문을 입력하거나 골라서 다음 장을 펼쳐보세요.</p></div><form id="spell-form" class="spell-nav__form"><label for="spell-input">YOUR INCANTATION</label><div><input id="spell-input" type="text" placeholder="Revelio, Accio, Aparecium…" autocomplete="off" spellcheck="false"><button type="submit" aria-label="주문 외우기">↗</button></div><small id="spell-feedback" role="status" aria-live="polite">Revelio · Accio · Aparecium · Tempus · Lumos · Alohomora</small></form><div class="spell-nav__list"><button data-panel="home"><span>00 · THE MAP</span><strong>Finite</strong><small>지도로 돌아가기</small></button><button data-panel="about"><span>01 · PROFILE</span><strong>Revelio</strong><small>숨겨진 소개 펼치기</small></button><button data-panel="work"><span>02 · WORK</span><strong>Accio</strong><small>활동 기록 불러오기</small></button><button data-panel="journal"><span>03 · JOURNAL</span><strong>Aparecium</strong><small>기록의 잉크 드러내기</small></button><button data-panel="calendar"><span>04 · CALENDAR</span><strong>Tempus</strong><small>시간의 페이지 넘기기</small></button><button data-panel="now"><span>05 · NOW</span><strong>Lumos</strong><small>지금의 이야기 비추기</small></button><button data-panel="contact"><span>06 · CONTACT</span><strong>Alohomora</strong><small>편지의 길 열기</small></button></div></nav>
     <main class="app-main">
       <section class="panel home-panel" id="home" data-page="home" hidden>
-        <div class="panel-head"><span>THE SLYTHERIN ARCHIVE</span><span>CHAPTER 00 / THE MAP</span></div>
+        <div class="panel-head"><span>THE <span data-house-name>SLYTHERIN</span> ARCHIVE</span><span>CHAPTER 00 / THE MAP</span></div>
         <div class="home-intro">
           <div class="home-magic" id="home-magic" aria-hidden="true"></div>
           <div class="home-intro__copy"><p class="overline">THE MAP HAS OPENED</p><h1>비밀은 언제나<br><em>흔적을 남긴다.</em></h1><p>안녕하세요, Cédrai입니다. 컴퓨터공학을 전공하며 보안과 디지털 포렌식을 공부하고 있습니다. 이곳에 활동과 공부의 흔적을 모았습니다.</p><div class="home-intro__marks"><span>COMPUTER SCIENCE</span><i>✦</i><span>DIGITAL FORENSICS</span></div><button class="hero-cast" data-spell="lumos" type="button"><span class="hero-cast__label">CAST LUMOS</span><i aria-hidden="true">✧</i></button></div>

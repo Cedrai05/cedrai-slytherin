@@ -123,6 +123,7 @@ try { wasEntered = sessionStorage.getItem('cedrai-entered') === '1'; } catch {}
 if (pages.has(initialPage) || wasEntered) {
   showPanel(initialPage || 'home', false);
   requestAnimationFrame(() => window.scrollTo({top:0,behavior:'instant'}));
+  window.addEventListener('load', () => window.setTimeout(() => window.scrollTo({top:0,behavior:'instant'}), 0), {once:true});
 }
 
 function renderPosts() {
