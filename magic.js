@@ -77,7 +77,7 @@
     remember('cedrai-lumos', enabled);
     const button = document.querySelector('.spellbook__menu [data-spell="lumos"]');
     button.querySelector('strong').textContent = enabled ? 'Nox' : 'Lumos';
-    button.querySelector('small').textContent = enabled ? 'Let the shadows return' : 'Illuminate the archive';
+    button.querySelector('small').textContent = enabled ? '빛을 거두기' : '아카이브에 빛 밝히기';
     button.setAttribute('aria-pressed', String(enabled));
     if (homeSigil) { homeSigil.setAttribute('aria-label', enabled ? 'Cast Nox' : 'Cast Lumos'); homeSigil.setAttribute('aria-pressed', String(enabled)); }
     const heroCast = document.querySelector('.hero-cast');
@@ -90,29 +90,30 @@
     remember('cedrai-revelio', enabled);
   };
 
-  window.magicCurtain = (spell, caption, action, leaving = false) => {
+  window.magicCurtain = (spell, caption, action, leaving = false, scene = 'journal') => {
     if (busy) return;
     if (reducedMotion.matches) { action(); return; }
     busy = true;
     document.getElementById('spell-gate-name').textContent = spell;
     document.getElementById('spell-gate-caption').textContent = caption;
+    gate.dataset.scene = scene;
     gate.classList.remove('is-visible');
     void gate.offsetWidth;
     gate.classList.add('is-visible');
     setTimeout(() => {
       action();
-      if (!leaving) setTimeout(() => { gate.classList.remove('is-visible'); busy = false; }, 320);
-    }, 420);
+      if (!leaving) setTimeout(() => { gate.classList.remove('is-visible'); busy = false; }, 420);
+    }, 560);
     if (leaving) setTimeout(() => { gate.classList.remove('is-visible'); busy = false; }, 1800);
   };
-  window.magicNavigate = (url, spell = 'Aparecium', caption = 'TURNING THE PAGE') => {
-    window.magicCurtain(spell, caption, () => location.assign(url), true);
+  window.magicNavigate = (url, spell = 'Aparecium', caption = '기록의 다음 장을 펼칩니다', scene = 'journal') => {
+    window.magicCurtain(spell, caption, () => location.assign(url), true, scene);
   };
 
   async function summonNote() {
     if (summoning) return;
     summoning = true;
-    announce('Accio — summoning a field note…');
+    announce('Accio — 기록을 불러옵니다…');
     try {
       const response = await fetch('posts.json');
       if (!response.ok) throw new Error('Posts unavailable');
@@ -121,9 +122,9 @@
       const choices = posts.filter(post => post.slug !== current);
       if (!choices.length) throw new Error('No notes');
       const post = choices[Math.floor(Math.random() * choices.length)];
-      window.magicNavigate(`blog.html?post=${encodeURIComponent(post.slug)}`, 'Accio', 'A FIELD NOTE IS COMING');
+      window.magicNavigate(`blog.html?post=${encodeURIComponent(post.slug)}`, 'Accio', '기록 한 장을 불러옵니다', 'journal');
     } catch {
-      window.magicNavigate('index.html#journal', 'Accio', 'OPENING THE JOURNAL');
+      window.magicNavigate('index.html#journal', 'Accio', '기록의 잉크를 드러냅니다', 'journal');
     }
     setTimeout(() => { summoning = false; }, 2000);
   }

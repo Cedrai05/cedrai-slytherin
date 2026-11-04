@@ -2,10 +2,10 @@ const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 const pages = new Set(['home','about','work','journal','calendar','now','contact']);
 const panelSpells = {
-  home: ['Finite', 'RETURNING TO THE MAP'], about: ['Revelio', 'A DOSSIER APPEARS'],
-  work: ['Accio', 'FOLLOWING THE EVIDENCE'], journal: ['Aparecium', 'THE INK IS REVEALING'],
-  calendar: ['Tempus', 'TURNING THE HOURS'], now: ['Lumos', 'THE PRESENT ILLUMINATED'],
-  contact: ['Alohomora', 'A LETTER FINDS ITS WAY']
+  home: ['Finite', '지도의 발자국을 따라 돌아갑니다'], about: ['Revelio', '숨겨진 소개를 드러냅니다'],
+  work: ['Accio', '활동의 흔적을 불러옵니다'], journal: ['Aparecium', '보이지 않던 잉크가 나타납니다'],
+  calendar: ['Tempus', '시간의 페이지를 넘깁니다'], now: ['Lumos', '지금의 이야기를 비춥니다'],
+  contact: ['Alohomora', '편지를 보낼 길을 엽니다']
 };
 let content = { posts: [], events: [], now: null };
 let activeFilter = 'all';
@@ -13,26 +13,8 @@ let visiblePosts = 6;
 let calendarDate = new Date();
 const dateFormat = new Intl.DateTimeFormat('en-US', { year:'numeric', month:'long', day:'numeric' });
 const categoryLabels = { 'CTF/Wargame':'CTF / WARGAME', '블로그/기술문서':'TECH NOTES', '논문/컨퍼런스':'PAPERS / CONFERENCES' };
-const titleLabels = { 'tistory-32':'File Upload', 'tistory-28':'Digital Forensics: Landscape and Response', 'tistory-8':'File Download' };
-const eventLabels = {
-  '가족 나들이':'Family outing', '가족 여행':'Family trip', '수강바구니':'Course planning',
-  '수강바구니 2차':'Course planning, round two', '수강신청':'Course registration',
-  '약속':'Meetup', '자취방':'Apartment', '제2회 영남권 사이버 공격 방어 대회':'Yeongnam Cyber Defense Competition',
-  '중간고사':'Midterms', '충주':'Chungju', '충청권 사이버 보안 경진 대회':'Chungcheong Cybersecurity Competition',
-  '클라우드 보안':'Cloud Security', 'GLT 모임':'GLT meeting', 'GTL 모임':'GTL meeting',
-  '가족과 영화 + 코엑스':'Movie and COEX with family', '가족과 함께 일본 여행':'Family trip to Japan',
-  '자취방 내려감':'Travel to my apartment', '잠깐 자취방 가서 청소 + 정리':'Clean and organize my apartment',
-  '친구와 약속':'Meeting a friend', '케이묵 클라우드 보안 수업':'K-MOOC Cloud Security class',
-  '학교 본 수강신청':'University course registration', '학교 수강바구니 2차':'Second course planning period',
-  '학교 수강바구니 신청':'University course planning'
-};
-const displayTitle = post => titleLabels[post.slug] || post.title;
+const displayTitle = post => post.title;
 const displayCategory = category => categoryLabels[category] || category;
-const displayEvent = value => eventLabels[value] || value;
-const nowTranslation = {
-  '세쿠에서 프로젝트 진행하기 위해 기획하는중. 학교 수업 듣고있고 케이묵 강의도 듣는중. 집에가고싶고 잠을 자고 싶음~':
-    'Planning a project with seKUrity, attending university classes, and taking K-MOOC lectures. Missing home and hoping for more sleep.'
-};
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const mapLoader = $('#map-loader');
 
@@ -75,20 +57,24 @@ function showPanel(name, push = true) {
   });
   $('#mobile-nav').hidden = true;
   $('#menu-toggle').setAttribute('aria-expanded','false');
-  $('#menu-toggle').setAttribute('aria-label','Open menu');
+  $('#menu-toggle').setAttribute('aria-label','주문 메뉴 열기');
   if (push) history.pushState({page}, '', `#${page}`);
   window.scrollTo({top:0,behavior:'instant'});
 }
 function openPanel(name) {
   const page = pages.has(name) ? name : 'home';
-  if ($(`.panel[data-page="${page}"]`)?.hidden === false) return;
+  if ($(`.panel[data-page="${page}"]`)?.hidden === false) {
+    $('#mobile-nav').hidden = true;
+    $('#menu-toggle').setAttribute('aria-expanded','false');
+    return;
+  }
   const [spell, caption] = panelSpells[page];
-  window.magicCurtain(spell, caption, () => showPanel(page));
+  window.magicCurtain(spell, caption, () => showPanel(page), false, page);
 }
 function enter() {
   $('#entrance').classList.add('opening');
   try { sessionStorage.setItem('cedrai-entered','1'); } catch {}
-  window.magicCurtain('Alohomora', 'THE STONE WALL OPENS', () => showPanel('home'));
+  window.magicCurtain('Alohomora', '돌문 너머의 지도를 펼칩니다', () => showPanel('home'), false, 'entrance');
 }
 $('#enter-button').addEventListener('click', enter);
 $$('[data-panel]').forEach(button => button.addEventListener('click', () => openPanel(button.dataset.panel)));
@@ -96,17 +82,48 @@ $('#menu-toggle').addEventListener('click', () => {
   const menu = $('#mobile-nav');
   menu.hidden = !menu.hidden;
   $('#menu-toggle').setAttribute('aria-expanded', String(!menu.hidden));
-  $('#menu-toggle').setAttribute('aria-label', menu.hidden ? 'Open menu' : 'Close menu');
+  $('#menu-toggle').setAttribute('aria-label', menu.hidden ? '주문 메뉴 열기' : '주문 메뉴 닫기');
+  if (!menu.hidden) $('#spell-input').focus();
+});
+$('#spell-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const input = $('#spell-input');
+  const cast = input.value.trim().toLocaleLowerCase().replace(/[^a-z]/g, '');
+  const destinations = { finite:'home', hominumrevelio:'about', revelio:'about', accio:'work', aparecium:'journal', tempus:'calendar', lumos:'now', alohomora:'contact' };
+  const page = destinations[cast];
+  if (!page) {
+    $('#spell-feedback').textContent = '주문을 찾지 못했습니다. 아래 주문 목록에서 골라 보세요.';
+    input.focus();
+    return;
+  }
+  $('#spell-feedback').textContent = `${panelSpells[page][0]} ✦`;
+  input.value = '';
+  openPanel(page);
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && !$('#mobile-nav').hidden) {
+    $('#mobile-nav').hidden = true;
+    $('#menu-toggle').setAttribute('aria-expanded','false');
+    $('#menu-toggle').focus();
+  }
+});
+document.addEventListener('click', event => {
+  if ($('#mobile-nav').hidden || event.target.closest('#mobile-nav, #menu-toggle')) return;
+  $('#mobile-nav').hidden = true;
+  $('#menu-toggle').setAttribute('aria-expanded','false');
 });
 window.addEventListener('popstate', () => {
   const page = location.hash.slice(1);
   const [spell, caption] = panelSpells[pages.has(page) ? page : 'home'];
-  window.magicCurtain(spell, caption, () => showPanel(page, false));
+  window.magicCurtain(spell, caption, () => showPanel(page, false), false, pages.has(page) ? page : 'home');
 });
 const initialPage = location.hash.slice(1);
 let wasEntered = false;
 try { wasEntered = sessionStorage.getItem('cedrai-entered') === '1'; } catch {}
-if (pages.has(initialPage) || wasEntered) showPanel(initialPage || 'home', false);
+if (pages.has(initialPage) || wasEntered) {
+  showPanel(initialPage || 'home', false);
+  requestAnimationFrame(() => window.scrollTo({top:0,behavior:'instant'}));
+}
 
 function renderPosts() {
   const search = $('#post-search').value.trim().toLocaleLowerCase();
@@ -127,7 +144,7 @@ $('#post-list').addEventListener('click', event => {
   const link=event.target.closest('a.post-row');
   if(!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0 || reducedMotion.matches) return;
   event.preventDefault();
-  window.magicNavigate(link.href, 'Aparecium', 'TURNING THE PAGE');
+  window.magicNavigate(link.href, 'Aparecium', '기록의 다음 장을 펼칩니다', 'journal');
 });
 function localDay(date) { return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`; }
 function renderCalendar() {
@@ -144,7 +161,7 @@ function renderCalendar() {
     html+=`<button class="calendar-day${iso===today?' today':''}" type="button" data-date="${iso}" aria-label="${iso}${eventDates.has(iso)?' has an entry':''}"><span>${day}</span>${eventDates.has(iso)?'<i></i>':''}</button>`;
   }
   $('#calendar-grid').innerHTML=html;
-  $('#calendar-detail').textContent='Choose a date to reveal an entry.';
+  $('#calendar-detail').textContent='날짜를 누르면 그날의 기록이 나타납니다.';
 }
 $('#prev-month').addEventListener('click',()=>{calendarDate=new Date(calendarDate.getFullYear(),calendarDate.getMonth()-1,1);renderCalendar()});
 $('#next-month').addEventListener('click',()=>{calendarDate=new Date(calendarDate.getFullYear(),calendarDate.getMonth()+1,1);renderCalendar()});
@@ -153,17 +170,17 @@ $('#calendar-grid').addEventListener('click',event=>{
   $$('.calendar-day.selected').forEach(el=>el.classList.remove('selected'));
   day.classList.add('selected');
   const records=content.events.filter(item=>item.date===day.dataset.date);
-  $('#calendar-detail').innerHTML=`<strong>${dateFormat.format(new Date(`${day.dataset.date}T12:00:00`))}</strong>${records.length?records.map(item=>escapeHtml(displayEvent(item.title))+(item.description?` — ${escapeHtml(displayEvent(item.description))}`:'')).join('<br>'):'No entry for this date.'}`;
+  $('#calendar-detail').innerHTML=`<strong>${dateFormat.format(new Date(`${day.dataset.date}T12:00:00`))}</strong>${records.length?records.map(item=>escapeHtml(item.title)+(item.description?` — ${escapeHtml(item.description)}`:'')).join('<br>'):'이 날짜에는 기록이 없습니다.'}`;
 });
 async function loadContent() {
   try {
     const response=await fetch('content.json'); if(!response.ok) throw Error('content');
     content=await response.json();
     renderPosts(); renderCalendar();
-    if(content.now){ $('#now-date').textContent=dateFormat.format(new Date(content.now.created_at)); $('#now-text').textContent=nowTranslation[content.now.content] || content.now.content; }
+    if(content.now){ $('#now-date').textContent=dateFormat.format(new Date(content.now.created_at)); $('#now-text').textContent=content.now.content; }
   } catch {
-    $('#post-list').innerHTML='<div class="empty-posts">The notes could not be loaded.</div>';
-    $('#calendar-detail').textContent='The almanac could not be loaded.';
+    $('#post-list').innerHTML='<div class="empty-posts">기록을 불러오지 못했습니다.</div>';
+    $('#calendar-detail').textContent='달력을 불러오지 못했습니다.';
   }
 }
 loadContent();

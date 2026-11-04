@@ -2,8 +2,7 @@ const $ = selector => document.querySelector(selector);
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const slug = new URLSearchParams(location.search).get('post');
 const categoryLabels = { 'CTF/Wargame':'CTF / WARGAME', '블로그/기술문서':'TECH NOTES', '논문/컨퍼런스':'PAPERS / CONFERENCES' };
-const titleLabels = { 'tistory-32':'File Upload', 'tistory-28':'Digital Forensics: Landscape and Response', 'tistory-8':'File Download' };
-const displayTitle = post => titleLabels[post.slug] || post.title;
+const displayTitle = post => post.title;
 function setNavigation(id, post, label) {
   const link = document.getElementById(id);
   if (!post) { link.hidden = true; return; }
@@ -39,6 +38,8 @@ document.addEventListener('click',event=>{
   if (!link || link.origin !== location.origin || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
   event.preventDefault();
   const returning = link.pathname.endsWith('/index.html');
-  window.magicNavigate(link.href, returning ? 'Finite' : 'Aparecium', returning ? 'RETURNING TO THE MAP' : 'TURNING THE PAGE');
+  const destination = returning ? new URL(link.href).hash.slice(1) || 'home' : 'journal';
+  const spell = destination === 'home' ? 'Finite' : 'Aparecium';
+  window.magicNavigate(link.href, spell, destination === 'home' ? '지도를 다시 펼칩니다' : '기록의 다음 장을 펼칩니다', destination);
 });
 init();
