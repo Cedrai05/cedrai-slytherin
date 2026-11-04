@@ -10,12 +10,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="style.css?v=wizard-1">
-  <script src="blog.js" defer></script>
+  <link rel="stylesheet" href="style.css?v=spellbook-1">
+  <script src="magic.js?v=spellbook-1" defer></script>
+  <script src="blog.js?v=spellbook-1" defer></script>
 </head>
 <body class="article-page">
   <div class="grain" aria-hidden="true"></div>
-  <div class="spell-transition" aria-hidden="true"><div class="spell-transition__sigil">✦</div><span>Revelio</span><small>TURNING THE PAGE</small></div>
+  <div class="spell-gate" id="spell-gate" aria-hidden="true"><div class="spell-gate__rune">✧</div><div class="spell-gate__rings" aria-hidden="true"></div><span class="spell-gate__name" id="spell-gate-name">Aparecium</span><small id="spell-gate-caption">TURNING THE PAGE</small></div>
   <header class="article-header">
     <a class="brand" href="index.html#home" aria-label="Cédrai 홈"><span class="brand-symbol">C</span><span>CÉDRAI<small>THE HIDDEN ARCHIVE</small></span></a>
     <a class="article-header__back" href="index.html#journal">← &nbsp; BACK TO JOURNAL</a>
@@ -23,10 +24,12 @@
   <main class="article-main">
     <div class="article-topline"><span>✦ &nbsp; ARCHIVE / FIELD NOTES</span><span id="article-counter"></span></div>
     <div class="article-intro"><div class="article-intro__rune" aria-hidden="true">✧</div><p class="article-category" id="article-category">THE ARCHIVE</p><h1 id="article-title">기록을 펼치는 중...</h1><div class="article-meta"><span id="article-date"></span><span>✦</span><span>CÉDRAI</span></div></div>
+    <aside class="article-marginalia" data-revelio hidden><span>INVISIBLE INK / A SECRET CROSSROAD</span><p>The archive has more to reveal. Let a spell choose your next field note.</p><button type="button" data-spell="accio">CAST ACCIO ↗</button></aside>
     <div class="article-book"><div class="article-book__spine" aria-hidden="true"></div><article class="article-content" id="article-content" aria-live="polite"></article></div>
     <nav class="article-pagination" aria-label="다른 글 보기"><a id="prev-post" href="#"></a><a id="next-post" href="#"></a></nav>
     <div class="article-return"><span>❧</span><p>다른 기록도 살펴보세요.</p><a class="button button-primary" href="index.html#journal">목록으로 돌아가기 <span>↗</span></a></div>
   </main>
+  <div class="spellbook" id="spellbook"><button class="spellbook__toggle" id="spellbook-toggle" type="button" aria-expanded="false" aria-controls="spellbook-menu"><span aria-hidden="true">✦</span> SPELLBOOK</button><div class="spellbook__menu" id="spellbook-menu" hidden><div class="spellbook__heading"><span>THE BOOK OF SPELLS</span><small>THREE SPELLS AT YOUR COMMAND</small></div><button type="button" data-spell="lumos"><strong>Lumos</strong><small>Illuminate the page</small></button><button type="button" data-spell="revelio"><strong>Revelio</strong><small>Reveal invisible ink</small></button><button type="button" data-spell="accio"><strong>Accio</strong><small>Summon a random field note</small></button></div><p class="spellbook__toast" id="spellbook-toast" role="status" aria-live="polite" hidden></p></div>
   <footer><span>© 2026 CÉDRAI</span><span>THE SLYTHERIN ARCHIVE</span><a href="index.html#home">HOME ↑</a></footer>
 </body>
 </html>

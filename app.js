@@ -1,6 +1,12 @@
 const $ = selector => document.querySelector(selector);
 const $$ = selector => [...document.querySelectorAll(selector)];
 const pages = new Set(['home','about','work','journal','calendar','now','contact']);
+const panelSpells = {
+  home: ['Finite', 'RETURNING TO THE MAP'], about: ['Revelio', 'A DOSSIER APPEARS'],
+  work: ['Accio', 'FOLLOWING THE EVIDENCE'], journal: ['Aparecium', 'THE INK IS REVEALING'],
+  calendar: ['Tempus', 'TURNING THE HOURS'], now: ['Lumos', 'THE PRESENT ILLUMINATED'],
+  contact: ['Alohomora', 'A LETTER FINDS ITS WAY']
+};
 let content = { posts: [], events: [], now: null };
 let activeFilter = 'all';
 let visiblePosts = 6;
@@ -39,6 +45,7 @@ function showPanel(name, push = true) {
   $('#app-shell').hidden = false;
   $$('.panel').forEach(panel => { panel.hidden = panel.dataset.page !== page; panel.classList.remove('panel-enter'); });
   const active = $(`.panel[data-page="${page}"]`);
+  active.querySelector('.chapter-title')?.setAttribute('data-incantation', panelSpells[page][0]);
   if (!reducedMotion.matches) { void active.offsetWidth; active.classList.add('panel-enter'); }
   $$('[data-panel]').forEach(button => {
     const selected = button.dataset.panel === page;
@@ -51,20 +58,30 @@ function showPanel(name, push = true) {
   if (push) history.pushState({page}, '', `#${page}`);
   window.scrollTo({top:0,behavior:'instant'});
 }
+function openPanel(name) {
+  const page = pages.has(name) ? name : 'home';
+  if ($(`.panel[data-page="${page}"]`)?.hidden === false) return;
+  const [spell, caption] = panelSpells[page];
+  window.magicCurtain(spell, caption, () => showPanel(page));
+}
 function enter() {
   $('#entrance').classList.add('opening');
   try { sessionStorage.setItem('cedrai-entered','1'); } catch {}
-  setTimeout(() => showPanel('home'), reducedMotion.matches ? 0 : 520);
+  window.magicCurtain('Alohomora', 'THE STONE WALL OPENS', () => showPanel('home'));
 }
 $('#enter-button').addEventListener('click', enter);
-$$('[data-panel]').forEach(button => button.addEventListener('click', () => showPanel(button.dataset.panel)));
+$$('[data-panel]').forEach(button => button.addEventListener('click', () => openPanel(button.dataset.panel)));
 $('#menu-toggle').addEventListener('click', () => {
   const menu = $('#mobile-nav');
   menu.hidden = !menu.hidden;
   $('#menu-toggle').setAttribute('aria-expanded', String(!menu.hidden));
   $('#menu-toggle').setAttribute('aria-label', menu.hidden ? '메뉴 열기' : '메뉴 닫기');
 });
-window.addEventListener('popstate', () => showPanel(location.hash.slice(1), false));
+window.addEventListener('popstate', () => {
+  const page = location.hash.slice(1);
+  const [spell, caption] = panelSpells[pages.has(page) ? page : 'home'];
+  window.magicCurtain(spell, caption, () => showPanel(page, false));
+});
 const initialPage = location.hash.slice(1);
 let wasEntered = false;
 try { wasEntered = sessionStorage.getItem('cedrai-entered') === '1'; } catch {}
@@ -89,8 +106,7 @@ $('#post-list').addEventListener('click', event => {
   const link=event.target.closest('a.post-row');
   if(!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0 || reducedMotion.matches) return;
   event.preventDefault();
-  document.body.classList.add('leaving');
-  setTimeout(() => location.assign(link.href), 310);
+  window.magicNavigate(link.href, 'Aparecium', 'TURNING THE PAGE');
 });
 function localDay(date) { return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`; }
 function renderCalendar() {

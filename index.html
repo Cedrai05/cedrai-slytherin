@@ -18,10 +18,12 @@
       if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('map-loading');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=map-1">
-  <script src="app.js?v=map-1" defer></script>
+  <link rel="stylesheet" href="style.css?v=spellbook-1">
+  <script src="magic.js?v=spellbook-1" defer></script>
+  <script src="app.js?v=spellbook-1" defer></script>
 </head>
 <body>
+  <div class="spell-gate" id="spell-gate" aria-hidden="true"><div class="spell-gate__rune">✧</div><div class="spell-gate__rings" aria-hidden="true"></div><span class="spell-gate__name" id="spell-gate-name">Revelio</span><small id="spell-gate-caption">THE ARCHIVE IS OPENING</small></div>
   <div class="map-loader" id="map-loader" role="status" aria-label="비밀 지도를 펼치는 중">
     <div class="map-loader__folds" aria-hidden="true"></div>
     <svg class="map-loader__drawing" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -78,15 +80,19 @@
     <main class="app-main">
       <section class="panel home-panel" id="home" data-page="home" hidden>
         <div class="panel-head"><span>THE SLYTHERIN ARCHIVE</span><span>CHAPTER 00 / THE MAP</span></div>
-        <div class="home-intro"><p class="overline">WELCOME INSIDE</p><h1>호기심의 끝에서<br><em>새로운 흔적을 찾다.</em></h1><p>안녕하세요, Cédrai입니다. 컴퓨터공학을 전공하며 보안과 디지털 포렌식을 공부하고 있습니다.</p></div>
-        <div class="chapter-grid" aria-label="기록 둘러보기">
-          <button class="chapter-card" data-panel="about"><span class="chapter-no">01 / PROFILE</span><span class="chapter-icon">◈</span><strong>나에 대하여</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
-          <button class="chapter-card" data-panel="work"><span class="chapter-no">02 / WORK</span><span class="chapter-icon">⌕</span><strong>활동 기록</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
-          <button class="chapter-card" data-panel="journal"><span class="chapter-no">03 / JOURNAL</span><span class="chapter-icon">⌁</span><strong>블로그</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
-          <button class="chapter-card" data-panel="calendar"><span class="chapter-no">04 / CALENDAR</span><span class="chapter-icon">◇</span><strong>일정</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
-          <button class="chapter-card" data-panel="now"><span class="chapter-no">05 / NOW</span><span class="chapter-icon">✧</span><strong>지금</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
-          <button class="chapter-card" data-panel="contact"><span class="chapter-no">06 / CONTACT</span><span class="chapter-icon">↗</span><strong>연락하기</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
+        <div class="home-intro">
+          <div class="home-intro__copy"><p class="overline">THE MAP HAS OPENED</p><h1>Every secret<br><em>leaves a trace.</em></h1><p>I'm Cédrai, a computer engineering student drawn to security and digital forensics. Follow the clues through my work, notes, and the stories behind them.</p><div class="home-intro__marks"><span>COMPUTER SCIENCE</span><i>✦</i><span>DIGITAL FORENSICS</span></div></div>
+          <div class="home-sigil" aria-hidden="true"><div class="home-sigil__halo"></div><div class="home-sigil__ring"><span>✦</span><b>C</b><small>ARCANA · CÉDRAI · 2026</small></div><span class="home-sigil__orbit">✧</span></div>
         </div>
+        <div class="chapter-grid" aria-label="Explore the archive">
+          <button class="chapter-card" data-panel="about"><span class="chapter-no">01 / PROFILE</span><span class="chapter-icon">◈</span><strong>The Seeker</strong><span class="chapter-whisper">The person behind the clues</span><span class="chapter-action">CAST REVELIO ↗</span><span class="card-secret" data-revelio hidden>THE DOSSIER UNSEALED</span></button>
+          <button class="chapter-card" data-panel="work"><span class="chapter-no">02 / WORK</span><span class="chapter-icon">⌕</span><strong>Fieldwork</strong><span class="chapter-whisper">Investigations and experiments</span><span class="chapter-action">CAST ACCIO ↗</span><span class="card-secret" data-revelio hidden>TRACES FOUND</span></button>
+          <button class="chapter-card" data-panel="journal"><span class="chapter-no">03 / JOURNAL</span><span class="chapter-icon">⌁</span><strong>Field Notes</strong><span class="chapter-whisper">A growing book of discoveries</span><span class="chapter-action">CAST APARECIUM ↗</span><span class="card-secret" data-revelio hidden>INK REVEALED</span></button>
+          <button class="chapter-card" data-panel="calendar"><span class="chapter-no">04 / CALENDAR</span><span class="chapter-icon">◇</span><strong>The Almanac</strong><span class="chapter-whisper">Dates written in the stars</span><span class="chapter-action">OPEN THE CHAPTER ↗</span><span class="card-secret" data-revelio hidden>TIME UNFOLDS</span></button>
+          <button class="chapter-card" data-panel="now"><span class="chapter-no">05 / NOW</span><span class="chapter-icon">✧</span><strong>At This Moment</strong><span class="chapter-whisper">What the present holds</span><span class="chapter-action">CAST LUMOS ↗</span><span class="card-secret" data-revelio hidden>A LIGHT IN THE DARK</span></button>
+          <button class="chapter-card" data-panel="contact"><span class="chapter-no">06 / CONTACT</span><span class="chapter-icon">↗</span><strong>Send an Owl</strong><span class="chapter-whisper">A letter finds its way</span><span class="chapter-action">CAST ALOHOMORA ↗</span><span class="card-secret" data-revelio hidden>THE PATH IS OPEN</span></button>
+        </div>
+        <button class="secret-route" id="secret-route" data-revelio data-spell="accio" type="button" hidden><span>✦</span> A SECRET PASSAGE HAS APPEARED <small>OPEN A RANDOM FIELD NOTE ↗</small></button>
       </section>
 
       <section class="panel" id="about" data-page="about" hidden><div class="panel-head"><span>CHAPTER 01</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>ABOUT / PROFILE</span><h2>나에 대하여</h2><p>작은 단서를 끝까지 따라가는 사람.</p></div><div class="about-layout"><div class="about-statement">“보이지 않는 흔적도<br>이야기를 남깁니다.”</div><div class="about-copy"><p>건국대학교 글로컬캠퍼스 컴퓨터공학과에 재학 중입니다. 보안에 관심이 많고, 디지털 포렌식 수사관을 목표로 공부하고 있습니다.</p><p>보안 소모임 seKUrity에서 활동하며 CTF, 웹 해킹, 리버싱, 포렌식을 배우고 기록합니다.</p><dl><div><dt>전공</dt><dd>컴퓨터공학</dd></div><div><dt>관심 분야</dt><dd>디지털 포렌식 · 보안</dd></div><div><dt>소속</dt><dd>seKUrity</dd></div></dl></div></div></section>
@@ -102,6 +108,7 @@
       <section class="panel" id="contact" data-page="contact" hidden><div class="panel-head"><span>CHAPTER 06</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>SEND A LETTER</span><h2>연락하기</h2><p>보안과 프로젝트 이야기, 또는 작은 인사도 좋습니다.</p></div><div class="contact-options"><a href="mailto:fls@cedrai.info"><span>01 / EMAIL</span><strong>fls@cedrai.info</strong><b>↗</b></a><a href="https://github.com/Cedrai05" target="_blank" rel="noopener noreferrer"><span>02 / GITHUB</span><strong>Cedrai05</strong><b>↗</b></a><a href="https://cedrai.info/blog" target="_blank" rel="noopener noreferrer"><span>03 / ORIGINAL BLOG</span><strong>cedrai.info/blog</strong><b>↗</b></a></div></section>
     </main>
     <footer><span>© 2026 CÉDRAI</span><span>COMPUTER ENGINEERING · SECURITY · FORENSICS</span><button data-panel="home">BACK TO MAP ↑</button></footer>
+    <div class="spellbook" id="spellbook"><button class="spellbook__toggle" id="spellbook-toggle" type="button" aria-expanded="false" aria-controls="spellbook-menu"><span aria-hidden="true">✦</span> SPELLBOOK</button><div class="spellbook__menu" id="spellbook-menu" hidden><div class="spellbook__heading"><span>THE BOOK OF SPELLS</span><small>THREE SPELLS AT YOUR COMMAND</small></div><button type="button" data-spell="lumos"><strong>Lumos</strong><small>Illuminate the archive</small></button><button type="button" data-spell="revelio"><strong>Revelio</strong><small>Reveal a hidden passage</small></button><button type="button" data-spell="accio"><strong>Accio</strong><small>Summon a random field note</small></button></div><p class="spellbook__toast" id="spellbook-toast" role="status" aria-live="polite" hidden></p></div>
   </div>
   <noscript><p class="noscript">이 사이트의 장을 열려면 JavaScript를 켜주세요.</p></noscript>
 </body>

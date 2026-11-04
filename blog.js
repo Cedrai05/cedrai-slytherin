@@ -1,6 +1,5 @@
 const $ = selector => document.querySelector(selector);
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const slug = new URLSearchParams(location.search).get('post');
 function setNavigation(id, post, label) {
   const link = document.getElementById(id);
@@ -35,9 +34,7 @@ document.addEventListener('click',event=>{
   const link = event.target.closest('a[href]');
   if (!link || link.origin !== location.origin || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
   event.preventDefault();
-  if (reducedMotion.matches) { location.assign(link.href); return; }
-  $('.spell-transition').classList.add('is-visible');
-  setTimeout(()=>location.assign(link.href),520);
+  const returning = link.pathname.endsWith('/index.html');
+  window.magicNavigate(link.href, returning ? 'Finite' : 'Aparecium', returning ? 'RETURNING TO THE MAP' : 'TURNING THE PAGE');
 });
-window.addEventListener('pageshow',()=>$('.spell-transition').classList.remove('is-visible'));
 init();
