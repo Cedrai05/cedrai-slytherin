@@ -16,14 +16,14 @@ async function init() {
     const index = posts.findIndex(post => post.slug === slug);
     if (index === -1) throw new Error('Post not found');
     const post = posts[index];
-    document.title = `${post.title} — Cédrai's Grimoire`;
+    document.title = `${post.title} — Cédrai's Field Notes`;
     $('#article-counter').textContent = `${String(index+1).padStart(2,'0')} / ${String(posts.length).padStart(2,'0')}`;
     $('#article-category').textContent = post.category;
     $('#article-title').textContent = post.title;
     $('#article-date').textContent = post.date;
     $('#article-content').innerHTML = post.contentHtml;
-    setNavigation('prev-post',posts[index-1],'← PREVIOUS SPELL');
-    setNavigation('next-post',posts[index+1],'NEXT SPELL →');
+    setNavigation('prev-post',posts[index-1],'← PREVIOUS NOTE');
+    setNavigation('next-post',posts[index+1],'NEXT NOTE →');
   } catch {
     $('#article-title').textContent = '기록을 찾을 수 없습니다.';
     $('#article-content').innerHTML = '<p>이 글은 현재 마법서에서 열 수 없습니다. 목록으로 돌아가 다른 기록을 골라주세요.</p>';

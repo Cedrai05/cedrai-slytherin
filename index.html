@@ -3,91 +3,60 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1815">
-  <meta name="description" content="Cédrai의 보안·포렌식·개발 기록. 슬리데린에서 영감을 받은 개인 포트폴리오.">
-  <title>Cédrai — The Slytherin Archive</title>
+  <meta name="theme-color" content="#071210">
+  <meta name="description" content="Cédrai의 보안·포렌식·개발 기록. 슬리데린에서 영감을 받은 포트폴리오.">
+  <title>Cédrai — The Hidden Archive</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=IM+Fell+English+SC&family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
 </head>
 <body>
-  <div class="grain" aria-hidden="true"></div>
-  <div class="spell-transition" aria-hidden="true"><div class="spell-transition__sigil">✦</div><span>Alohomora</span><small>OPENING THE ARCHIVE</small></div>
-  <div class="spark-layer" aria-hidden="true"></div>
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="Cédrai 홈"><span class="brand-mark">C<span class="tiny-star">✦</span></span><span class="brand-type">CÉDRAI<small>THE SLYTHERIN ARCHIVE</small></span></a>
-    <nav class="desktop-nav" aria-label="주 메뉴">
-      <a href="#about">ABOUT</a><a href="#work">WORK</a><a href="#journal">JOURNAL</a><a href="#calendar">CALENDAR</a><a href="#contact">CONTACT</a>
-    </nav>
-    <button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">☰</button>
-  </header>
-  <nav class="mobile-nav" aria-label="모바일 메뉴" hidden><a href="#about">ABOUT</a><a href="#work">WORK</a><a href="#journal">JOURNAL</a><a href="#calendar">CALENDAR</a><a href="#contact">CONTACT</a></nav>
+  <section class="entrance" id="entrance" aria-labelledby="entrance-title">
+    <div class="entrance-wash" aria-hidden="true"></div>
+    <div class="entrance-top"><span>CÉDRAI / PERSONAL ARCHIVE</span><span>SLYTHERIN · EST. 2025</span></div>
+    <div class="archway" aria-hidden="true"><div class="archway-inner"><div class="archway-crest"><svg viewBox="0 0 100 130"><path d="M50 5 89 17v46c0 27-18 47-39 61C29 110 11 90 11 63V17Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M50 12 82 22v40c0 22-13 39-32 52-19-13-32-30-32-52V22Z" fill="none" stroke="currentColor" stroke-opacity=".48"/><path d="M29 46c8-11 33-13 40-1 7 13-8 22-20 23-18 2-21 11-15 16 9 7 25 0 34-6-3 15-23 24-37 17-14-7-13-26-1-33 9-5 25-3 28-12 2-8-15-10-29-4Z" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><circle cx="67" cy="42" r="1.5" fill="currentColor"/></svg></div></div></div>
+    <div class="entrance-copy"><p class="overline">BEHIND THE STONE WALL</p><h1 id="entrance-title">The hidden<br><em>archive.</em></h1><p>보이지 않는 단서를 찾아가는 기록.</p><button id="enter-button" class="enter-button" type="button">입장하기 <span aria-hidden="true">↗</span></button><span class="entrance-note">PRESS TO ENTER</span></div>
+    <div class="entrance-bottom"><span>UNDER THE LAKE</span><span>01 — 06</span></div>
+  </section>
 
-  <main id="home">
-    <section class="hero">
-      <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
-      <div class="hero-inner">
-        <p class="eyebrow"><span class="diamond">◆</span> PERSONAL ARCHIVE · CLASS OF SLYTHERIN <span class="diamond">◆</span></p>
-        <div class="crest" aria-label="뱀 문장">
-          <svg viewBox="0 0 240 270" role="img" aria-hidden="true"><defs><linearGradient id="metal" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#f3ead4"/><stop offset=".45" stop-color="#9ba99c"/><stop offset="1" stop-color="#d4c89e"/></linearGradient></defs><path d="M120 7 215 39v88c0 64-37 107-95 134C62 234 25 191 25 127V39Z" fill="#112820" stroke="url(#metal)" stroke-width="3"/><path d="M120 17 205 46v81c0 58-32 98-85 123-53-25-85-65-85-123V46Z" fill="none" stroke="#6a836f" stroke-width="1"/><path d="M71 82c31-27 87-25 98 8 10 29-21 46-50 45-28-1-33 20-16 29 19 11 53 4 66-10-2 25-23 42-49 42-36 0-60-22-54-49 5-23 25-34 55-34 18 0 28-7 25-18-5-17-38-19-58-3Z" fill="none" stroke="url(#metal)" stroke-width="7" stroke-linecap="round"/><path d="m166 83 22-9-10 21-12-12Z" fill="url(#metal)"/><circle cx="175" cy="83" r="2.2" fill="#0b1815"/><path d="M118 52v15m-8-8h16M120 212v18m-9-9h18" stroke="#b9b99e" stroke-width="1"/></svg>
+  <div id="app-shell" hidden>
+    <header class="site-header">
+      <button class="brand" type="button" data-panel="home" aria-label="Cédrai 홈"><span class="brand-symbol">C</span><span>CÉDRAI<small>THE HIDDEN ARCHIVE</small></span></button>
+      <nav class="desktop-nav" aria-label="장 선택"><button data-panel="home">HOME</button><button data-panel="about">ABOUT</button><button data-panel="work">WORK</button><button data-panel="journal">JOURNAL</button><button data-panel="calendar">CALENDAR</button><button data-panel="now">NOW</button><button data-panel="contact">CONTACT</button></nav>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기"><span></span><span></span></button>
+    </header>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="모바일 장 선택" hidden><button data-panel="home">HOME</button><button data-panel="about">ABOUT</button><button data-panel="work">WORK</button><button data-panel="journal">JOURNAL</button><button data-panel="calendar">CALENDAR</button><button data-panel="now">NOW</button><button data-panel="contact">CONTACT</button></nav>
+    <main class="app-main">
+      <section class="panel home-panel" id="home" data-page="home" hidden>
+        <div class="panel-head"><span>THE SLYTHERIN ARCHIVE</span><span>CHAPTER 00 / THE MAP</span></div>
+        <div class="home-intro"><p class="overline">WELCOME INSIDE</p><h1>호기심의 끝에서<br><em>새로운 흔적을 찾다.</em></h1><p>안녕하세요, Cédrai입니다. 컴퓨터공학을 전공하며 보안과 디지털 포렌식을 공부하고 있습니다.</p></div>
+        <div class="chapter-grid" aria-label="기록 둘러보기">
+          <button class="chapter-card" data-panel="about"><span class="chapter-no">01 / PROFILE</span><span class="chapter-icon">◈</span><strong>나에 대하여</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
+          <button class="chapter-card" data-panel="work"><span class="chapter-no">02 / WORK</span><span class="chapter-icon">⌕</span><strong>활동 기록</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
+          <button class="chapter-card" data-panel="journal"><span class="chapter-no">03 / JOURNAL</span><span class="chapter-icon">⌁</span><strong>블로그</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
+          <button class="chapter-card" data-panel="calendar"><span class="chapter-no">04 / CALENDAR</span><span class="chapter-icon">◇</span><strong>일정</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
+          <button class="chapter-card" data-panel="now"><span class="chapter-no">05 / NOW</span><span class="chapter-icon">✧</span><strong>지금</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
+          <button class="chapter-card" data-panel="contact"><span class="chapter-no">06 / CONTACT</span><span class="chapter-icon">↗</span><strong>연락하기</strong><span class="chapter-action">OPEN CHAPTER ↗</span></button>
         </div>
-        <div class="hero-rule"><span>✦</span></div>
-        <h1>Curiosity is<br><em>a kind of magic.</em></h1>
-        <p class="hero-korean">보이지 않는 흔적을 찾아내고, 복잡한 문제를 풀어가는 사람.</p>
-        <p class="hero-intro">안녕하세요, Cédrai입니다. 컴퓨터공학을 전공하며<br class="desktop-break"> 보안과 디지털 포렌식을 공부하고 있습니다.</p>
-        <div class="hero-actions"><a class="button button-primary" href="#work">기록 탐험하기 <span>↗</span></a><a class="button button-ghost" href="#about">나에 대하여 <span>↓</span></a></div>
-      </div>
-      <div class="hero-bottom"><span>EST. 2025 · KONKUK UNIV.</span><span>SCROLL TO DISCOVER ↓</span></div>
-    </section>
+      </section>
 
-    <div class="marquee" aria-hidden="true"><span>FORENSICS <b>✦</b> SECURITY <b>✦</b> CTF <b>✦</b> DEVELOPMENT <b>✦</b> FORENSICS <b>✦</b> SECURITY <b>✦</b> CTF <b>✦</b> DEVELOPMENT <b>✦</b></span></div>
+      <section class="panel" id="about" data-page="about" hidden><div class="panel-head"><span>CHAPTER 01</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>ABOUT / PROFILE</span><h2>나에 대하여</h2><p>작은 단서를 끝까지 따라가는 사람.</p></div><div class="about-layout"><div class="about-statement">“보이지 않는 흔적도<br>이야기를 남깁니다.”</div><div class="about-copy"><p>건국대학교 글로컬캠퍼스 컴퓨터공학과에 재학 중입니다. 보안에 관심이 많고, 디지털 포렌식 수사관을 목표로 공부하고 있습니다.</p><p>보안 소모임 seKUrity에서 활동하며 CTF, 웹 해킹, 리버싱, 포렌식을 배우고 기록합니다.</p><dl><div><dt>전공</dt><dd>컴퓨터공학</dd></div><div><dt>관심 분야</dt><dd>디지털 포렌식 · 보안</dd></div><div><dt>소속</dt><dd>seKUrity</dd></div></dl></div></div></section>
 
-    <section class="section about-section" id="about">
-      <div class="section-index">I / THE WIZARD BEHIND THE WORK</div>
-      <div class="section-grid">
-        <div><p class="kicker">ABOUT ME</p><h2>문제를 바라보는<br><em>새로운 시선.</em></h2></div>
-        <div class="about-copy"><p>건국대학교 글로컬캠퍼스 컴퓨터공학과에 재학 중입니다. 보안에 관심이 많고, 디지털 포렌식 수사관을 목표로 공부하고 있습니다.</p><p>보안 소모임 <strong>seKUrity</strong>에서 활동하며 CTF, 웹 해킹, 리버싱, 포렌식 공부를 기록합니다. 작은 단서를 끝까지 따라가는 과정을 좋아합니다.</p><div class="facts"><div><small>DISCIPLINE</small><span>Computer Engineering</span></div><div><small>FOCUS</small><span>Digital Forensics · Security</span></div><div><small>HOUSE</small><span>Slytherin, of course.</span></div></div></div>
-      </div>
-    </section>
+      <section class="panel" id="work" data-page="work" hidden><div class="panel-head"><span>CHAPTER 02</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>SELECTED WORK</span><h2>활동 기록</h2><p>직접 참여하고 배운 것을 모았습니다.</p></div><div class="work-list"><a href="https://cedrai-portfolio.vercel.app/activities/forensic-study" target="_blank" rel="noopener noreferrer"><span>01 / FORENSICS</span><strong>Digital Forensics Study</strong><small>디지털 증거와 아티팩트를 추적하는 스터디</small><b>↗</b></a><a href="https://cedrai-portfolio.vercel.app/activities/competitions/ku-ctf" target="_blank" rel="noopener noreferrer"><span>02 / CTF</span><strong>KU CTF 2025</strong><small>웹 해킹 문제 출제 경험과 풀이 자료</small><b>↗</b></a><a href="https://cedrai-portfolio.vercel.app/activities/competitions/msg-ctf" target="_blank" rel="noopener noreferrer"><span>03 / CTF</span><strong>MSG CTF 2025</strong><small>운영과 문제 출제로 참여한 대회</small><b>↗</b></a></div><a class="quiet-link" href="https://github.com/Cedrai05" target="_blank" rel="noopener noreferrer">GITHUB에서 더 보기 ↗</a></section>
 
-    <section class="section work-section" id="work">
-      <div class="section-index">II / SELECTED FIELD NOTES</div>
-      <div class="section-heading"><div><p class="kicker">THE COLLECTION</p><h2>탐구의 <em>기록들.</em></h2></div><p>코드와 문제, 그리고 배운 것을 남깁니다.<br>원본 포트폴리오의 활동 페이지로 이어집니다.</p></div>
-      <div class="work-grid">
-        <a class="work-card" href="https://cedrai-portfolio.vercel.app/activities/forensic-study" target="_blank" rel="noopener noreferrer"><div class="card-top"><span>01 / FORENSICS</span><span>↗</span></div><div class="work-symbol">⌕</div><div class="work-card-bottom"><h3>Digital Forensics<br>Study</h3><p>디지털 증거와 아티팩트를 추적하는 스터디 기록</p><span class="card-tags">FORENSICS · STUDY</span></div></a>
-        <a class="work-card" href="https://cedrai-portfolio.vercel.app/activities/competitions/ku-ctf" target="_blank" rel="noopener noreferrer"><div class="card-top"><span>02 / CTF</span><span>↗</span></div><div class="work-symbol">◇</div><div class="work-card-bottom"><h3>KU CTF<br>2025</h3><p>웹 해킹 문제 출제 경험과 풀이 자료</p><span class="card-tags">WEB SECURITY · CTF</span></div></a>
-        <a class="work-card" href="https://cedrai-portfolio.vercel.app/activities/competitions/msg-ctf" target="_blank" rel="noopener noreferrer"><div class="card-top"><span>03 / CTF</span><span>↗</span></div><div class="work-symbol">✧</div><div class="work-card-bottom"><h3>MSG CTF<br>2025</h3><p>운영과 문제 출제로 참여한 대회 기록</p><span class="card-tags">PROBLEM SETTING · CTF</span></div></a>
-      </div>
-      <a class="text-link" href="https://github.com/Cedrai05" target="_blank" rel="noopener noreferrer">GitHub에서 더 보기 <span>↗</span></a>
-    </section>
+      <section class="panel" id="journal" data-page="journal" hidden><div class="panel-head"><span>CHAPTER 03</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>THE JOURNAL</span><h2>블로그</h2><p>연구 노트와 공개 글을 찾아보세요.</p></div><div class="journal-shell"><div class="journal-tools"><label class="search-wrap"><span aria-hidden="true">⌕</span><input id="post-search" type="search" placeholder="글 검색" aria-label="블로그 글 검색"></label><div class="filter-group" role="group" aria-label="글 분류"><button class="filter active" data-filter="all" aria-pressed="true">전체</button><button class="filter" data-filter="CTF/Wargame" aria-pressed="false">CTF</button><button class="filter" data-filter="블로그/기술문서" aria-pressed="false">기술 노트</button></div></div><div class="journal-caption"><span id="post-count">기록을 불러오는 중</span><span>FIELD NOTES / CÉDRAI</span></div><div id="post-list" class="post-list" aria-live="polite"></div><button class="more-button" id="more-posts" type="button">다음 기록 보기 ↓</button></div></section>
 
-    <section class="section journal-section" id="journal">
-      <div class="section-index">III / FROM THE GRIMOIRE</div>
-      <div class="section-heading"><div><p class="kicker">JOURNAL <span class="script-word">The Grimoire</span></p><h2>연구 노트와 <em>이야기.</em></h2></div><p>공개된 블로그 글을 찾아볼 수 있습니다.<br>제목을 누르면 원문이 열립니다.</p></div>
-      <div class="journal-book">
-        <div class="book-spine" aria-hidden="true"><span>THE CÉDRAI GRIMOIRE</span><i>✧</i></div>
-        <div class="book-pages">
-          <div class="book-header"><span>✦ &nbsp; CHAPTER III · THE WRITTEN SPELLS &nbsp; ✦</span><div class="book-header__ornament" aria-hidden="true">❧</div><p>지식은 기록할 때 더 오래 빛납니다.</p></div>
-          <div class="journal-controls"><label class="search-wrap"><span aria-hidden="true">⌕</span><input id="post-search" type="search" placeholder="찾고 싶은 기록을 적어보세요..." aria-label="블로그 글 검색"></label><div class="filter-group" role="group" aria-label="글 분류"><button class="filter active" data-filter="all" aria-pressed="true"><span class="filter-rune">✧</span> 모든 기록</button><button class="filter" data-filter="CTF/Wargame" aria-pressed="false"><span class="filter-rune">⚡</span> CTF 주문서</button><button class="filter" data-filter="블로그/기술문서" aria-pressed="false"><span class="filter-rune">✦</span> 연구 노트</button></div></div>
-          <div class="book-line"><span id="post-count">마법서를 펼치는 중...</span><span>HOVER TO REVEAL ✧</span></div>
-      <div class="post-list" id="post-list" aria-live="polite"></div>
-          <button class="more-button" id="more-posts" type="button">다음 페이지 펼치기 <span>✧</span></button>
-        </div>
-      </div>
-    </section>
+      <section class="panel" id="calendar" data-page="calendar" hidden><div class="panel-head"><span>CHAPTER 04</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>THE CALENDAR</span><h2>일정</h2><p>기록된 날짜를 선택해 살펴보세요.</p></div><div class="calendar-shell"><div class="calendar-head"><button id="prev-month" type="button" aria-label="이전 달">←</button><h3 id="calendar-title"></h3><button id="next-month" type="button" aria-label="다음 달">→</button></div><div class="calendar-weekdays"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div><div class="calendar-grid" id="calendar-grid"></div><div class="calendar-detail" id="calendar-detail">날짜를 선택하면 일정이 표시됩니다.</div></div></section>
 
-    <section class="section calendar-section" id="calendar">
-      <div class="section-index">IV / THE ASTRONOMY TOWER</div>
-      <div class="section-heading"><div><p class="kicker">CALENDAR</p><h2>시간의 <em>흔적.</em></h2></div><p>원본 포트폴리오에 기록된 일정입니다.<br>월을 넘기며 지난 일정을 살펴보세요.</p></div>
-      <div class="calendar-shell"><div class="calendar-head"><button id="prev-month" type="button" aria-label="이전 달">←</button><h3 id="calendar-title"></h3><button id="next-month" type="button" aria-label="다음 달">→</button></div><div class="calendar-weekdays"><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span><span>SUN</span></div><div class="calendar-grid" id="calendar-grid"></div><div class="calendar-detail" id="calendar-detail">표시된 날짜를 선택하면 일정을 볼 수 있습니다.</div></div>
-    </section>
+      <section class="panel" id="now" data-page="now" hidden><div class="panel-head"><span>CHAPTER 05</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>CURRENT CHAPTER</span><h2>지금</h2><p>최근에 남긴 근황입니다.</p></div><div class="now-layout"><div class="now-quote">“오늘의 기록은<br>내일의 단서가 됩니다.”</div><div class="now-card"><span id="now-date"></span><p id="now-text"></p></div></div></section>
 
-    <section class="section now-section" id="now"><div class="section-index">V / CURRENT CHAPTER</div><div class="now-layout"><div><p class="kicker">NOW</p><h2>지금, <em>이 순간.</em></h2></div><div class="now-card"><div class="now-card-head"><span>LAST DISPATCH</span><span id="now-date"></span></div><p id="now-text"></p><span class="seal">C</span></div></div></section>
-    <section class="contact-section" id="contact"><div class="contact-ornament">✦</div><p class="kicker">SEND AN OWL</p><h2>함께 이야기할<br><em>준비가 되어 있어요.</em></h2><p>보안, 프로젝트, 또는 작은 인사도 좋습니다.</p><a class="button button-primary" href="mailto:fls@cedrai.info">메일 보내기 <span>↗</span></a><div class="contact-links"><a href="https://github.com/Cedrai05" target="_blank" rel="noopener noreferrer">GITHUB ↗</a><a href="https://cedrai.info/blog" target="_blank" rel="noopener noreferrer">ORIGINAL BLOG ↗</a></div></section>
-  </main>
-  <footer><span>© 2026 CÉDRAI</span><span>MADE WITH CURIOSITY & A LITTLE MAGIC</span><a href="#home">BACK TO TOP ↑</a></footer>
+      <section class="panel" id="contact" data-page="contact" hidden><div class="panel-head"><span>CHAPTER 06</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>SEND A LETTER</span><h2>연락하기</h2><p>보안과 프로젝트 이야기, 또는 작은 인사도 좋습니다.</p></div><div class="contact-options"><a href="mailto:fls@cedrai.info"><span>01 / EMAIL</span><strong>fls@cedrai.info</strong><b>↗</b></a><a href="https://github.com/Cedrai05" target="_blank" rel="noopener noreferrer"><span>02 / GITHUB</span><strong>Cedrai05</strong><b>↗</b></a><a href="https://cedrai.info/blog" target="_blank" rel="noopener noreferrer"><span>03 / ORIGINAL BLOG</span><strong>cedrai.info/blog</strong><b>↗</b></a></div></section>
+    </main>
+    <footer><span>© 2026 CÉDRAI</span><span>COMPUTER ENGINEERING · SECURITY · FORENSICS</span><button data-panel="home">BACK TO MAP ↑</button></footer>
+  </div>
+  <noscript><p class="noscript">이 사이트의 장을 열려면 JavaScript를 켜주세요.</p></noscript>
 </body>
 </html>
