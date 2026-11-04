@@ -24,3 +24,36 @@ footer{border-top:1px solid var(--line);padding:22px 5%;display:flex;justify-con
 .home-intro h1,.chapter-title h2,.chapter-card strong,.about-statement,.now-quote,.post-text strong,.article-intro h1,.article-content h2,.article-content h3,.article-content h4,.article-pagination a strong{letter-spacing:0}
 .article-content{font-size:16px}
 @media(max-width:480px){.article-content{font-size:15px}}
+
+/* A blank parchment develops ink, rooms, and footsteps before the stone door. */
+html.map-loading,html.map-loading body{overflow:hidden}
+.map-loader{display:none;position:fixed;inset:0;z-index:1000;place-items:center;overflow:hidden;color:#4a3326;background:radial-gradient(ellipse at 50% 46%,#f4e8c9 0%,#e5d2ab 65%,#c6ac82 100%);isolation:isolate}
+html.map-loading .map-loader{display:grid}
+.map-loader:before{content:'';position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,#6b4c2409 0 1px,transparent 1px 5px),radial-gradient(circle at 8% 12%,#89643618,transparent 28%),radial-gradient(circle at 91% 85%,#7c54291d,transparent 26%);opacity:.65;mix-blend-mode:multiply}
+.map-loader:after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;box-shadow:inset 0 0 100px #7656333d,inset 0 0 12px #684e2b4d}
+.map-loader__folds{position:absolute;inset:0;opacity:0;background:linear-gradient(90deg,transparent 32.9%,#86653a1f 33%,#fff8e152 33.15%,transparent 33.35%,transparent 66.45%,#7052321b 66.6%,#fff8e14a 66.75%,transparent 66.9%);animation:map-fade .7s ease .3s both}
+.map-loader__drawing{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:#6e5032;stroke-width:1.45;stroke-linecap:round;stroke-linejoin:round;opacity:.75}
+.map-loader__lines path{stroke-dasharray:100;stroke-dashoffset:100;animation:map-draw 1.7s cubic-bezier(.19,.68,.31,1) var(--line-delay) both}
+.map-loader__lines--frame{--line-delay:.52s;stroke-width:1.05}
+.map-loader__lines--rooms{--line-delay:.75s;stroke-width:1.7}
+.map-loader__lines--routes{--line-delay:.98s;stroke-width:1.2}
+.map-loader__lines--ornament{--line-delay:1.16s;stroke-width:1.2}
+.map-loader__steps use{opacity:0;animation:map-step .35s ease var(--step) both}
+.map-loader__mobile-steps{display:none}
+.map-loader__inscription{position:relative;z-index:2;text-align:center;min-width:min(520px,80vw);padding:26px 30px 35px;background:radial-gradient(ellipse at center,#efdfbbf5 16%,#efdfbbe8 58%,#efdfbb00 80%);opacity:0;transform:translateY(12px);animation:map-inscribe .8s ease 1.44s both}
+.map-loader__inscription span{display:block;font:600 clamp(10px,1.2vw,15px) 'Cormorant Garamond',serif;letter-spacing:.24em;margin-bottom:12px}
+.map-loader__inscription strong{display:block;font:600 clamp(40px,7.2vw,91px)/.84 'Cormorant Garamond',serif;letter-spacing:-.045em;text-shadow:0 1px #fff5dd80}
+.map-loader__inscription em{display:block;font:400 clamp(47px,6vw,79px)/1 'Pinyon Script','Cormorant Garamond',cursive;color:#65462c;transform:rotate(-6deg);margin-top:8px}
+.map-loader__inscription p{font:400 clamp(14px,1.3vw,17px)/1.5 'SchoolSafetyWizard',sans-serif;margin:4px 0 0;letter-spacing:0}
+.map-loader__progress{position:absolute;z-index:4;bottom:clamp(28px,6vh,58px);left:50%;width:min(330px,62vw);display:flex;align-items:center;gap:14px;transform:translateX(-50%);font:600 11px 'Cormorant Garamond',serif;letter-spacing:.13em;white-space:nowrap;opacity:0;animation:map-fade .6s ease .8s both}
+.map-loader__progress i{display:block;flex:1;height:1px;background:#6d503449;position:relative;overflow:hidden}
+.map-loader__progress i:after{content:'';position:absolute;inset:0;background:#5f422c;transform:scaleX(0);transform-origin:left;animation:map-progress 2.65s linear .54s both}
+.map-loader__skip{position:absolute;z-index:5;right:clamp(20px,4vw,58px);bottom:clamp(26px,5vh,52px);border:0;border-bottom:1px solid #7c6248;background:transparent;color:#59422e;padding:5px 0;font:400 13px 'SchoolSafetyWizard',sans-serif;opacity:0;animation:map-fade .5s ease 1s both}
+.map-loader__skip span{margin-left:7px}.map-loader__skip:hover{color:#1c160f;border-color:#1c160f}
+.map-loader.is-leaving{opacity:0;transform:scale(1.045);filter:blur(5px);transition:opacity .62s ease,transform .62s ease,filter .62s ease;pointer-events:none}
+@keyframes map-draw{from{stroke-dashoffset:100;opacity:0}10%{opacity:1}to{stroke-dashoffset:0;opacity:1}}
+@keyframes map-step{from{opacity:0}to{opacity:.84}}
+@keyframes map-fade{from{opacity:0}to{opacity:1}}
+@keyframes map-inscribe{from{opacity:0;transform:translateY(12px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes map-progress{to{transform:scaleX(1)}}
+@media(max-width:760px){.map-loader__drawing{width:960px;max-width:none;left:50%;transform:translateX(-50%)}.map-loader__mobile-steps{display:block}.map-loader__inscription{min-width:100%;padding:20px 24px 30px}.map-loader__inscription strong{font-size:clamp(48px,13vw,78px)}.map-loader__progress{bottom:82px}.map-loader__skip{right:50%;bottom:25px;transform:translateX(50%)}}

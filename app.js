@@ -7,6 +7,30 @@ let visiblePosts = 6;
 let calendarDate = new Date();
 const dateFormat = new Intl.DateTimeFormat('ko-KR', { year:'numeric', month:'long', day:'numeric' });
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const mapLoader = $('#map-loader');
+
+if (document.documentElement.classList.contains('map-loading')) {
+  $('#entrance').inert = true;
+  let dismissed = false;
+  const dismissMap = (focusEntrance = false) => {
+    if (dismissed) return;
+    dismissed = true;
+    mapLoader.classList.add('is-leaving');
+    window.setTimeout(() => {
+      mapLoader.hidden = true;
+      document.documentElement.classList.remove('map-loading');
+      $('#entrance').inert = false;
+      if (focusEntrance) $('#enter-button').focus();
+    }, 640);
+  };
+  const mapTimer = window.setTimeout(() => dismissMap(), 3300);
+  $('#skip-map-loader').addEventListener('click', () => {
+    window.clearTimeout(mapTimer);
+    dismissMap(true);
+  });
+} else {
+  mapLoader.hidden = true;
+}
 
 function escapeHtml(value) { return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char])); }
 function showPanel(name, push = true) {

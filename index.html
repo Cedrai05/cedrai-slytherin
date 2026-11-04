@@ -11,10 +11,55 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="stylesheet" href="style.css?v=wizard-1">
-  <script src="app.js" defer></script>
+  <script>
+    try {
+      if (!location.hash && sessionStorage.getItem('cedrai-entered') !== '1' && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('map-loading');
+    } catch {
+      if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('map-loading');
+    }
+  </script>
+  <link rel="stylesheet" href="style.css?v=map-1">
+  <script src="app.js?v=map-1" defer></script>
 </head>
 <body>
+  <div class="map-loader" id="map-loader" role="status" aria-label="비밀 지도를 펼치는 중">
+    <div class="map-loader__folds" aria-hidden="true"></div>
+    <svg class="map-loader__drawing" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <g id="map-step" fill="#533c2b"><ellipse cx="-6" cy="-3" rx="5" ry="8" transform="rotate(-24 -6 -3)"/><ellipse cx="6" cy="4" rx="5" ry="8" transform="rotate(23 6 4)"/></g>
+      </defs>
+      <g class="map-loader__lines map-loader__lines--frame">
+        <path pathLength="100" d="M36 56H1164V664H36Z M55 74H1145V646H55Z"/>
+        <path pathLength="100" d="M96 112H1104M96 608H1104M114 130V590M1086 130V590"/>
+        <path pathLength="100" d="M399 56V664M801 56V664"/>
+      </g>
+      <g class="map-loader__lines map-loader__lines--rooms">
+        <path pathLength="100" d="M134 166H320V250H270V294H134Z M165 194H285V223H165Z M134 333H295V480H245V539H134Z M164 363H267V450H164Z"/>
+        <path pathLength="100" d="M431 132H768V183H705V214H494V183H431Z M465 506H735V568H465Z M514 525H687V550H514Z"/>
+        <path pathLength="100" d="M875 162H1061V267H1015V300H875Z M904 191H1032V241H904Z M885 394H1062V548H1018V577H885Z M915 424H1033V519H915Z"/>
+      </g>
+      <g class="map-loader__lines map-loader__lines--routes">
+        <path pathLength="100" d="M320 210H370V290H430M295 408H368V483H456M769 158H829V210H875M736 538H812V471H885"/>
+        <path pathLength="100" d="M362 247C401 247 402 345 462 345M812 208C763 222 775 320 718 326M330 537C424 595 470 585 525 570M860 405C796 367 744 399 713 433"/>
+        <path pathLength="100" d="M104 311H337M867 350H1092M414 596H786M404 94V168M796 563V626"/>
+      </g>
+      <g class="map-loader__lines map-loader__lines--ornament">
+        <path pathLength="100" d="M600 76L608 96 628 104 608 112 600 132 592 112 572 104 592 96Z M600 590L606 604 620 610 606 616 600 630 594 616 580 610 594 604Z"/>
+        <path pathLength="100" d="M92 96l25 0m-12-12v24M1108 96l-25 0m12-12v24M92 624h25m-12-12v24M1108 624h-25m12-12v24"/>
+        <path pathLength="100" d="M530 240C505 217 470 219 449 242M670 240c25-23 60-21 81 2M530 475c-25 23-60 21-81-2M670 475c25 23 60 21 81-2"/>
+      </g>
+      <g class="map-loader__steps">
+        <use href="#map-step" x="189" y="555" style="--step:1.12s"/><use href="#map-step" x="215" y="535" style="--step:1.27s"/><use href="#map-step" x="246" y="515" style="--step:1.42s"/><use href="#map-step" x="282" y="496" style="--step:1.57s"/><use href="#map-step" x="320" y="486" style="--step:1.72s"/><use href="#map-step" x="355" y="470" style="--step:1.87s"/>
+        <use href="#map-step" x="816" y="278" style="--step:1.38s"/><use href="#map-step" x="844" y="263" style="--step:1.53s"/><use href="#map-step" x="871" y="247" style="--step:1.68s"/><use href="#map-step" x="898" y="231" style="--step:1.83s"/><use href="#map-step" x="925" y="215" style="--step:1.98s"/>
+      </g>
+      <g class="map-loader__steps map-loader__mobile-steps">
+        <use href="#map-step" x="470" y="558" style="--step:1.30s"/><use href="#map-step" x="500" y="547" style="--step:1.47s"/><use href="#map-step" x="530" y="537" style="--step:1.64s"/><use href="#map-step" x="560" y="525" style="--step:1.81s"/><use href="#map-step" x="590" y="514" style="--step:1.98s"/>
+      </g>
+    </svg>
+    <div class="map-loader__inscription" aria-hidden="true"><span>THE SECRET ROUTE TO</span><strong>THE HIDDEN<br>ARCHIVE</strong><em>Revelio</em><p>발자국을 따라 기록이 드러납니다.</p></div>
+    <div class="map-loader__progress" aria-hidden="true"><span>INK REVEALING</span><i></i><span>01 / 06</span></div>
+    <button class="map-loader__skip" id="skip-map-loader" type="button">건너뛰기 <span aria-hidden="true">↗</span></button>
+  </div>
   <section class="entrance" id="entrance" aria-labelledby="entrance-title">
     <div class="entrance-wash" aria-hidden="true"></div>
     <div class="entrance-top"><span>CÉDRAI / PERSONAL ARCHIVE</span><span>SLYTHERIN · EST. 2025</span></div>
