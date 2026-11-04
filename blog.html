@@ -16,20 +16,18 @@
       document.documentElement.dataset.house = ['slytherin','gryffindor','ravenclaw','hufflepuff'].includes(house) ? house : 'slytherin';
     } catch { document.documentElement.dataset.house = 'slytherin'; }
   </script>
-  <link rel="stylesheet" href="style.css?v=type-7">
-  <link rel="stylesheet" href="houses.css?v=type-7">
-  <script src="houses.js?v=type-7" defer></script>
-  <script src="magic.js?v=type-7" defer></script>
-  <script src="blog.js?v=type-7" defer></script>
+  <link rel="stylesheet" href="style.css?v=dock-8">
+  <link rel="stylesheet" href="houses.css?v=dock-8">
+  <link rel="stylesheet" href="dock.css?v=dock-8">
+  <script src="houses.js?v=dock-8" defer></script>
+  <script src="magic.js?v=dock-8" defer></script>
+  <script src="blog.js?v=dock-8" defer></script>
 </head>
 <body class="article-page">
   <div class="grain" aria-hidden="true"></div>
   <div class="spell-gate" id="spell-gate" aria-hidden="true"><div class="spell-gate__scene" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="spell-gate__rune">✧</div><span class="spell-gate__name" id="spell-gate-name">Aparecium</span><small id="spell-gate-caption">TURNING THE PAGE</small></div>
-  <header class="article-header">
-    <a class="brand" href="index.html#home" aria-label="Cédrai home"><span class="brand-symbol">C</span><span>CÉDRAI<small>THE HIDDEN ARCHIVE</small></span></a>
-    <div class="article-header__actions"><div data-house-picker></div><a class="article-header__back" href="index.html#journal">← &nbsp; BACK TO BLOG</a></div>
-  </header>
   <main class="article-main">
+    <a class="article-back-mark" href="index.html#journal"><span aria-hidden="true">↶</span> BACK TO BLOG</a>
     <div class="article-topline"><span>✦ &nbsp; ARCHIVE / FIELD NOTES</span><span id="article-counter"></span></div>
     <div class="article-intro"><div class="article-intro__rune" aria-hidden="true">✧</div><p class="article-category" id="article-category">THE ARCHIVE</p><h1 id="article-title">Opening a field note…</h1><div class="article-meta"><span id="article-date"></span><span>✦</span><span>CÉDRAI</span></div></div>
     <aside class="article-marginalia" data-revelio hidden><span>INVISIBLE INK / A SECRET CROSSROAD</span><p>아카이브에는 아직 더 많은 기록이 있습니다. 주문으로 다음 노트를 찾아보세요.</p><button type="button" data-spell="accio">CAST ACCIO ↗</button></aside>
@@ -37,7 +35,18 @@
     <nav class="article-pagination" aria-label="Browse field notes"><a id="prev-post" href="#"></a><a id="next-post" href="#"></a></nav>
     <div class="article-return"><span>❧</span><p>아직 펼쳐 보지 않은 기록이 남아 있습니다.</p><a class="button button-primary" href="index.html#journal">BACK TO THE BLOG <span>↗</span></a></div>
   </main>
-  <div class="spellbook" id="spellbook"><button class="spellbook__toggle" id="spellbook-toggle" type="button" aria-expanded="false" aria-controls="spellbook-menu"><span aria-hidden="true">✦</span> SPELLBOOK</button><div class="spellbook__menu" id="spellbook-menu" hidden><div class="spellbook__heading"><span>THE BOOK OF SPELLS</span><small>세 가지 주문을 골라 보세요</small></div><button type="button" data-spell="lumos"><strong>Lumos</strong><small>페이지에 빛 밝히기</small></button><button type="button" data-spell="revelio"><strong>Revelio</strong><small>보이지 않는 잉크 드러내기</small></button><button type="button" data-spell="accio"><strong>Accio</strong><small>무작위 기록 불러오기</small></button></div><p class="spellbook__toast" id="spellbook-toast" role="status" aria-live="polite" hidden></p></div>
+  <div class="spellbook" id="spellbook">
+    <button class="spellbook__veil" type="button" aria-label="주문서 닫기" hidden></button>
+    <button class="spellbook__toggle" id="spellbook-toggle" type="button" aria-expanded="false" aria-controls="spellbook-menu" aria-label="주문서 펼치기"><span class="spellbook__wand" aria-hidden="true">✦</span><span>OPEN SPELLBOOK</span></button>
+    <div class="spellbook__menu" id="spellbook-menu" role="dialog" aria-label="The book of spells" hidden>
+      <button class="spellbook__close" type="button" aria-label="주문서 닫기">×</button>
+      <div class="spellbook__heading"><span>THE BOOK OF SPELLS</span><small>한 장을 골라 주문을 외워보세요.</small></div>
+      <nav class="spell-nav" id="mobile-nav" aria-label="주문으로 장 이동"><div class="spell-nav__intro"><span>THE INCANTATION INDEX</span><p>주문을 입력하거나 골라서 다음 장을 펼쳐보세요.</p></div><form id="spell-form" class="spell-nav__form"><label for="spell-input">YOUR INCANTATION</label><div><input id="spell-input" type="text" placeholder="Revelio, Accio, Aparecium…" autocomplete="off" spellcheck="false"><button type="submit" aria-label="주문 외우기">↗</button></div><small id="spell-feedback" role="status" aria-live="polite">Revelio · Accio · Aparecium · Tempus · Lumos · Alohomora</small></form><div class="spell-nav__list"><a href="index.html#home"><span>00 · THE MAP</span><strong>Finite</strong><small>지도로 돌아가기</small></a><a href="index.html#about"><span>01 · PROFILE</span><strong>Revelio</strong><small>숨겨진 소개 펼치기</small></a><a href="index.html#work"><span>02 · WORK</span><strong>Accio</strong><small>활동 기록 불러오기</small></a><a href="index.html#journal"><span>03 · BLOG / JOURNAL</span><strong>Aparecium</strong><small>기록의 잉크 드러내기</small></a><a href="index.html#calendar"><span>04 · CALENDAR</span><strong>Tempus</strong><small>시간의 페이지 넘기기</small></a><a href="index.html#now"><span>05 · NOW</span><strong>Lumos</strong><small>지금의 이야기 비추기</small></a><a href="index.html#contact"><span>06 · CONTACT</span><strong>Alohomora</strong><small>편지의 길 열기</small></a></div></nav>
+      <div class="spellbook__charms"><span>SMALL CHARMS</span><div class="spellbook__charms-list"><button type="button" data-spell="lumos"><strong>Lumos</strong><small>페이지에 빛 밝히기</small></button><button type="button" data-spell="revelio"><strong>Revelio</strong><small>보이지 않는 잉크 드러내기</small></button><button type="button" data-spell="accio"><strong>Accio</strong><small>무작위 기록 불러오기</small></button></div></div>
+    </div>
+    <p class="spellbook__toast" id="spellbook-toast" role="status" aria-live="polite" hidden></p>
+  </div>
+  <div class="house-orb" data-house-picker></div>
   <footer><span>© 2026 CÉDRAI</span><span>THE <span data-house-name>SLYTHERIN</span> ARCHIVE</span><a href="index.html#home">HOME ↑</a></footer>
 </body>
 </html>

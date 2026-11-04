@@ -55,17 +55,14 @@ function showPanel(name, push = true) {
     button.classList.toggle('selected', selected);
     if (button.closest('nav')) button.setAttribute('aria-current', selected ? 'page' : 'false');
   });
-  $('#mobile-nav').hidden = true;
-  $('#menu-toggle').setAttribute('aria-expanded','false');
-  $('#menu-toggle').setAttribute('aria-label','주문 메뉴 열기');
+  window.closeSpellbook?.();
   if (push) history.pushState({page}, '', `#${page}`);
   window.scrollTo({top:0,behavior:'instant'});
 }
 function openPanel(name) {
   const page = pages.has(name) ? name : 'home';
   if ($(`.panel[data-page="${page}"]`)?.hidden === false) {
-    $('#mobile-nav').hidden = true;
-    $('#menu-toggle').setAttribute('aria-expanded','false');
+    window.closeSpellbook?.();
     return;
   }
   const [spell, caption] = panelSpells[page];
@@ -78,13 +75,6 @@ function enter() {
 }
 $('#enter-button').addEventListener('click', enter);
 $$('[data-panel]').forEach(button => button.addEventListener('click', () => openPanel(button.dataset.panel)));
-$('#menu-toggle').addEventListener('click', () => {
-  const menu = $('#mobile-nav');
-  menu.hidden = !menu.hidden;
-  $('#menu-toggle').setAttribute('aria-expanded', String(!menu.hidden));
-  $('#menu-toggle').setAttribute('aria-label', menu.hidden ? '주문 메뉴 열기' : '주문 메뉴 닫기');
-  if (!menu.hidden) $('#spell-input').focus();
-});
 $('#spell-form').addEventListener('submit', event => {
   event.preventDefault();
   const input = $('#spell-input');
@@ -99,18 +89,6 @@ $('#spell-form').addEventListener('submit', event => {
   $('#spell-feedback').textContent = `${panelSpells[page][0]} ✦`;
   input.value = '';
   openPanel(page);
-});
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && !$('#mobile-nav').hidden) {
-    $('#mobile-nav').hidden = true;
-    $('#menu-toggle').setAttribute('aria-expanded','false');
-    $('#menu-toggle').focus();
-  }
-});
-document.addEventListener('click', event => {
-  if ($('#mobile-nav').hidden || event.target.closest('#mobile-nav, #menu-toggle')) return;
-  $('#mobile-nav').hidden = true;
-  $('#menu-toggle').setAttribute('aria-expanded','false');
 });
 window.addEventListener('popstate', () => {
   const page = location.hash.slice(1);

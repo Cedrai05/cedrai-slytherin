@@ -39,7 +39,21 @@ document.addEventListener('click',event=>{
   event.preventDefault();
   const returning = link.pathname.endsWith('/index.html');
   const destination = returning ? new URL(link.href).hash.slice(1) || 'home' : 'journal';
-  const spell = destination === 'home' ? 'Finite' : 'Aparecium';
-  window.magicNavigate(link.href, spell, destination === 'home' ? '지도를 다시 펼칩니다' : '기록의 다음 장을 펼칩니다', destination);
+  const spells = { home:'Finite', about:'Revelio', work:'Accio', journal:'Aparecium', calendar:'Tempus', now:'Lumos', contact:'Alohomora' };
+  const spell = spells[destination] || 'Aparecium';
+  window.magicNavigate(link.href, spell, destination === 'home' ? '지도를 다시 펼칩니다' : '다음 장을 펼칩니다', destination);
+});
+document.getElementById('spell-form').addEventListener('submit', event => {
+  event.preventDefault();
+  const input = document.getElementById('spell-input');
+  const cast = input.value.trim().toLocaleLowerCase().replace(/[^a-z]/g, '');
+  const destinations = { finite:'home', revelio:'about', accio:'work', aparecium:'journal', tempus:'calendar', lumos:'now', alohomora:'contact' };
+  const destination = destinations[cast];
+  if (!destination) {
+    document.getElementById('spell-feedback').textContent = '주문을 찾지 못했습니다. 아래 목록에서 골라 보세요.';
+    input.focus();
+    return;
+  }
+  window.magicNavigate(`index.html#${destination}`, cast[0].toUpperCase() + cast.slice(1), '다음 장을 펼칩니다', destination);
 });
 init();

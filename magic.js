@@ -2,6 +2,7 @@
   const gate = document.getElementById('spell-gate');
   const toggle = document.getElementById('spellbook-toggle');
   const menu = document.getElementById('spellbook-menu');
+  const veil = document.querySelector('.spellbook__veil');
   const toast = document.getElementById('spellbook-toast');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const home = document.getElementById('home');
@@ -11,6 +12,7 @@
   let summoning = false;
   let toastTimer;
   let lastTrail = 0;
+  const inertWhileOpen = [];
 
   function spark(x, y, burst = false) {
     if (reducedMotion.matches) return;
@@ -63,9 +65,13 @@
   const closeMenu = () => {
     const focusWasInside = menu.contains(document.activeElement);
     menu.hidden = true;
+    veil.hidden = true;
     toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', '주문서 펼치기');
+    inertWhileOpen.splice(0).forEach(element => { element.inert = false; });
     if (focusWasInside) toggle.focus();
   };
+  window.closeSpellbook = closeMenu;
   const announce = message => {
     toast.textContent = message;
     toast.hidden = false;
@@ -132,10 +138,20 @@
   setLumos(recalled('cedrai-lumos'));
   setRevelio(recalled('cedrai-revelio'));
   toggle.addEventListener('click', () => {
-    menu.hidden = !menu.hidden;
-    toggle.setAttribute('aria-expanded', String(!menu.hidden));
+    if (!menu.hidden) { closeMenu(); return; }
+    menu.hidden = false;
+    veil.hidden = false;
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', '주문서 닫기');
+    document.querySelectorAll('.app-main, .archive-mark, .article-main, .house-orb, body > footer, #app-shell > footer').forEach(element => {
+      if (!element.inert) { element.inert = true; inertWhileOpen.push(element); }
+    });
+    const bounds = toggle.getBoundingClientRect();
+    spark(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2, true);
+    (document.getElementById('spell-input') || menu.querySelector('a,button'))?.focus();
   });
   document.addEventListener('click', event => {
+    if (event.target.closest('.spellbook__close, .spellbook__veil')) { closeMenu(); return; }
     const spellButton = event.target.closest('[data-spell]');
     if (spellButton) {
       const spell = spellButton.dataset.spell;
@@ -164,7 +180,6 @@
     if (event.altKey && event.key.toLowerCase() === 's') {
       event.preventDefault();
       toggle.click();
-      if (!menu.hidden) menu.querySelector('button').focus();
     }
   });
   document.addEventListener('pointermove', event => {

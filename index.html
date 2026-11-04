@@ -21,11 +21,12 @@
       if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('map-loading');
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=type-7">
-  <link rel="stylesheet" href="houses.css?v=type-7">
-  <script src="houses.js?v=type-7" defer></script>
-  <script src="magic.js?v=type-7" defer></script>
-  <script src="app.js?v=type-7" defer></script>
+  <link rel="stylesheet" href="style.css?v=dock-8">
+  <link rel="stylesheet" href="houses.css?v=dock-8">
+  <link rel="stylesheet" href="dock.css?v=dock-8">
+  <script src="houses.js?v=dock-8" defer></script>
+  <script src="magic.js?v=dock-8" defer></script>
+  <script src="app.js?v=dock-8" defer></script>
 </head>
 <body>
   <div class="spell-gate" id="spell-gate" aria-hidden="true"><div class="spell-gate__scene" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="spell-gate__rune">✧</div><span class="spell-gate__name" id="spell-gate-name">Revelio</span><small id="spell-gate-caption">기록을 펼치는 중</small></div>
@@ -69,18 +70,14 @@
   </div>
   <section class="entrance" id="entrance" aria-labelledby="entrance-title">
     <div class="entrance-wash" aria-hidden="true"></div>
-    <div class="entrance-top"><span>CÉDRAI / PERSONAL ARCHIVE</span><div data-house-picker></div></div>
+    <div class="entrance-top"><span>CÉDRAI / PERSONAL ARCHIVE</span><span>THE HIDDEN ARCHIVE</span></div>
     <div class="archway" aria-hidden="true"><div class="archway-inner"><div class="archway-crest"><svg viewBox="0 0 100 130"><path d="M50 5 89 17v46c0 27-18 47-39 61C29 110 11 90 11 63V17Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M50 12 82 22v40c0 22-13 39-32 52-19-13-32-30-32-52V22Z" fill="none" stroke="currentColor" stroke-opacity=".48"/><path d="M29 46c8-11 33-13 40-1 7 13-8 22-20 23-18 2-21 11-15 16 9 7 25 0 34-6-3 15-23 24-37 17-14-7-13-26-1-33 9-5 25-3 28-12 2-8-15-10-29-4Z" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><circle cx="67" cy="42" r="1.5" fill="currentColor"/></svg></div></div></div>
     <div class="entrance-copy"><p class="overline">BEHIND THE STONE WALL</p><h1 id="entrance-title">The hidden<br><em>archive.</em></h1><p>흔적을 따라, 숨겨진 기록을 펼쳐보세요.</p><button id="enter-button" class="enter-button" type="button"><span class="enter-button__sigil" aria-hidden="true">✦</span><span class="enter-button__words"><small>CAST ALOHOMORA</small><strong>OPEN THE ARCHIVE</strong></span><span class="enter-button__arrow" aria-hidden="true">↗</span></button><span class="entrance-note">PRESS TO ENTER</span></div>
     <div class="entrance-bottom"><span data-house-location>UNDER THE LAKE</span><span>01 — 06</span></div>
   </section>
 
   <div id="app-shell" hidden>
-    <header class="site-header">
-      <button class="brand" type="button" data-panel="home" aria-label="Cédrai home"><span class="brand-symbol">C</span><span>CÉDRAI<small>THE HIDDEN ARCHIVE</small></span></button>
-      <div class="header-actions"><div data-house-picker></div><button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="주문 메뉴 열기"><span class="menu-toggle__star" aria-hidden="true">✦</span><span>CAST A SPELL</span><span class="menu-toggle__arrow" aria-hidden="true">⌄</span></button></div>
-    </header>
-    <nav class="mobile-nav" id="mobile-nav" aria-label="주문으로 장 이동" hidden><div class="spell-nav__intro"><span>THE INCANTATION INDEX</span><p>주문을 입력하거나 골라서 다음 장을 펼쳐보세요.</p></div><form id="spell-form" class="spell-nav__form"><label for="spell-input">YOUR INCANTATION</label><div><input id="spell-input" type="text" placeholder="Revelio, Accio, Aparecium…" autocomplete="off" spellcheck="false"><button type="submit" aria-label="주문 외우기">↗</button></div><small id="spell-feedback" role="status" aria-live="polite">Revelio · Accio · Aparecium · Tempus · Lumos · Alohomora</small></form><div class="spell-nav__list"><button data-panel="home"><span>00 · THE MAP</span><strong>Finite</strong><small>지도로 돌아가기</small></button><button data-panel="about"><span>01 · PROFILE</span><strong>Revelio</strong><small>숨겨진 소개 펼치기</small></button><button data-panel="work"><span>02 · WORK</span><strong>Accio</strong><small>활동 기록 불러오기</small></button><button data-panel="journal"><span>03 · BLOG / JOURNAL</span><strong>Aparecium</strong><small>기록의 잉크 드러내기</small></button><button data-panel="calendar"><span>04 · CALENDAR</span><strong>Tempus</strong><small>시간의 페이지 넘기기</small></button><button data-panel="now"><span>05 · NOW</span><strong>Lumos</strong><small>지금의 이야기 비추기</small></button><button data-panel="contact"><span>06 · CONTACT</span><strong>Alohomora</strong><small>편지의 길 열기</small></button></div></nav>
+    <button class="archive-mark" type="button" data-panel="home" aria-label="Cédrai home"><span class="archive-mark__seal">C</span><span>CÉDRAI<small>THE HIDDEN ARCHIVE</small></span></button>
     <main class="app-main">
       <section class="panel home-panel" id="home" data-page="home" hidden>
         <div class="panel-head"><span>THE <span data-house-name>SLYTHERIN</span> ARCHIVE</span><span>CHAPTER 00 / THE MAP</span></div>
@@ -113,8 +110,19 @@
       <section class="panel" id="contact" data-page="contact" hidden><div class="panel-head"><span>CHAPTER 06</span><button class="panel-back" data-panel="home">← ALL CHAPTERS</button></div><div class="chapter-title"><span>SEND A LETTER</span><h2>Send an Owl</h2><p>함께 이야기하고 싶다면 편지를 보내주세요.</p></div><div class="contact-options"><a href="mailto:fls@cedrai.info"><span>01 / EMAIL</span><strong>fls@cedrai.info</strong><b>↗</b></a><a href="https://github.com/Cedrai05" target="_blank" rel="noopener noreferrer"><span>02 / GITHUB</span><strong>Cedrai05</strong><b>↗</b></a><a href="https://cedrai.info/blog" target="_blank" rel="noopener noreferrer"><span>03 / ORIGINAL BLOG</span><strong>cedrai.info/blog</strong><b>↗</b></a></div></section>
     </main>
     <footer><span>© 2026 CÉDRAI</span><span>COMPUTER ENGINEERING · SECURITY · FORENSICS</span><button data-panel="home">BACK TO MAP ↑</button></footer>
-    <div class="spellbook" id="spellbook"><button class="spellbook__toggle" id="spellbook-toggle" type="button" aria-expanded="false" aria-controls="spellbook-menu"><span aria-hidden="true">✦</span> SPELLBOOK</button><div class="spellbook__menu" id="spellbook-menu" hidden><div class="spellbook__heading"><span>THE BOOK OF SPELLS</span><small>세 가지 주문을 골라 보세요</small></div><button type="button" data-spell="lumos"><strong>Lumos</strong><small>아카이브에 빛 밝히기</small></button><button type="button" data-spell="revelio"><strong>Revelio</strong><small>숨겨진 통로 드러내기</small></button><button type="button" data-spell="accio"><strong>Accio</strong><small>무작위 기록 불러오기</small></button></div><p class="spellbook__toast" id="spellbook-toast" role="status" aria-live="polite" hidden></p></div>
+    <div class="spellbook" id="spellbook">
+      <button class="spellbook__veil" type="button" aria-label="주문서 닫기" hidden></button>
+      <button class="spellbook__toggle" id="spellbook-toggle" type="button" aria-expanded="false" aria-controls="spellbook-menu" aria-label="주문서 펼치기"><span class="spellbook__wand" aria-hidden="true">✦</span><span>OPEN SPELLBOOK</span></button>
+      <div class="spellbook__menu" id="spellbook-menu" role="dialog" aria-label="The book of spells" hidden>
+        <button class="spellbook__close" type="button" aria-label="주문서 닫기">×</button>
+        <div class="spellbook__heading"><span>THE BOOK OF SPELLS</span><small>한 장을 골라 주문을 외워보세요.</small></div>
+<nav class="spell-nav" id="mobile-nav" aria-label="주문으로 장 이동"><div class="spell-nav__intro"><span>THE INCANTATION INDEX</span><p>주문을 입력하거나 골라서 다음 장을 펼쳐보세요.</p></div><form id="spell-form" class="spell-nav__form"><label for="spell-input">YOUR INCANTATION</label><div><input id="spell-input" type="text" placeholder="Revelio, Accio, Aparecium…" autocomplete="off" spellcheck="false"><button type="submit" aria-label="주문 외우기">↗</button></div><small id="spell-feedback" role="status" aria-live="polite">Revelio · Accio · Aparecium · Tempus · Lumos · Alohomora</small></form><div class="spell-nav__list"><button data-panel="home"><span>00 · THE MAP</span><strong>Finite</strong><small>지도로 돌아가기</small></button><button data-panel="about"><span>01 · PROFILE</span><strong>Revelio</strong><small>숨겨진 소개 펼치기</small></button><button data-panel="work"><span>02 · WORK</span><strong>Accio</strong><small>활동 기록 불러오기</small></button><button data-panel="journal"><span>03 · BLOG / JOURNAL</span><strong>Aparecium</strong><small>기록의 잉크 드러내기</small></button><button data-panel="calendar"><span>04 · CALENDAR</span><strong>Tempus</strong><small>시간의 페이지 넘기기</small></button><button data-panel="now"><span>05 · NOW</span><strong>Lumos</strong><small>지금의 이야기 비추기</small></button><button data-panel="contact"><span>06 · CONTACT</span><strong>Alohomora</strong><small>편지의 길 열기</small></button></div></nav>
+        <div class="spellbook__charms"><span>SMALL CHARMS</span><div class="spellbook__charms-list"><button type="button" data-spell="lumos"><strong>Lumos</strong><small>아카이브에 빛 밝히기</small></button><button type="button" data-spell="revelio"><strong>Revelio</strong><small>숨겨진 통로 드러내기</small></button><button type="button" data-spell="accio"><strong>Accio</strong><small>무작위 기록 불러오기</small></button></div></div>
+      </div>
+      <p class="spellbook__toast" id="spellbook-toast" role="status" aria-live="polite" hidden></p>
+    </div>
   </div>
+  <div class="house-orb" data-house-picker></div>
   <noscript><p class="noscript">Enable JavaScript to open this archive.</p></noscript>
 </body>
 </html>
