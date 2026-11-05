@@ -20,17 +20,23 @@
   <link rel="stylesheet" href="houses.css?v=enchanted-9">
   <link rel="stylesheet" href="dock.css?v=enchanted-9">
   <link rel="stylesheet" href="enchanted.css?v=enchanted-9">
+  <link rel="stylesheet" href="field-notes.css?v=notes-1">
+  <link rel="stylesheet" href="login.css?v=login-1">
   <script src="houses.js?v=enchanted-9" defer></script>
   <script src="magic.js?v=enchanted-9" defer></script>
-  <script src="blog.js?v=enchanted-9" defer></script>
+  <script src="field-notes.js?v=notes-1" defer></script>
+  <script src="login.js?v=login-1" defer></script>
+  <script src="blog.js?v=notes-1" defer></script>
 </head>
 <body class="article-page">
+  <div class="article-read-progress" aria-hidden="true"><span id="article-read-progress"></span></div>
   <div class="grain" aria-hidden="true"></div>
   <div class="spell-gate" id="spell-gate" aria-hidden="true"><div class="spell-gate__scene" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="spell-gate__rune">✧</div><span class="spell-gate__name" id="spell-gate-name">Aparecium</span><small id="spell-gate-caption">TURNING THE PAGE</small></div>
   <main class="article-main">
-    <a class="article-back-mark" href="index.html#journal"><span aria-hidden="true">↶</span> BACK TO BLOG</a>
+    <div class="article-utility"><a class="article-back-mark" href="index.html#journal"><span aria-hidden="true">↶</span> BACK TO BLOG</a><button type="button" data-open-login>✦ SIGN IN</button></div>
     <div class="article-topline"><span>✦ &nbsp; ARCHIVE / FIELD NOTES</span><span id="article-counter"></span></div>
-    <div class="article-intro"><div class="article-intro__rune" aria-hidden="true">✧</div><p class="article-category" id="article-category">THE ARCHIVE</p><h1 id="article-title">Opening a field note…</h1><div class="article-meta"><span id="article-date"></span><span>✦</span><span>CÉDRAI</span></div></div>
+    <div class="article-intro"><div class="article-intro__rune" aria-hidden="true">✧</div><p class="article-category" id="article-category">THE ARCHIVE</p><h1 id="article-title">Opening a field note…</h1><div class="article-meta"><span id="article-date"></span><span>✦</span><span>CÉDRAI</span><span>✦</span><span id="article-reading-time"></span></div></div>
+    <div class="article-desk"><details class="article-index" id="article-index" hidden><summary>PAGE GUIDE</summary><nav id="article-index-list" aria-label="On this page"></nav></details><div class="article-desk__actions"><button type="button" id="resume-reading" hidden>RESUME READING ↗</button><button type="button" id="article-save" aria-pressed="false">✧ SAVE THIS NOTE</button></div></div>
     <aside class="article-marginalia" data-revelio hidden><span>INVISIBLE INK / A SECRET CROSSROAD</span><p>아카이브에는 아직 더 많은 기록이 있습니다. 주문으로 다음 노트를 찾아보세요.</p><button type="button" data-spell="accio">CAST ACCIO ↗</button></aside>
     <div class="article-book"><div class="article-book__spine" aria-hidden="true"></div><article lang="ko" class="article-content" id="article-content" aria-live="polite"></article></div>
     <nav class="article-pagination" aria-label="Browse field notes"><a id="prev-post" href="#"></a><a id="next-post" href="#"></a></nav>

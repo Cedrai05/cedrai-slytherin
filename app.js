@@ -111,10 +111,33 @@ if (pages.has(initialPage) || wasEntered) {
 
 function renderPosts() {
   const search = $('#post-search').value.trim().toLocaleLowerCase();
-  const list = content.posts.filter(post => (activeFilter === 'all' || (activeFilter === 'tech' ? post.category === '블로그/기술문서' : post.category === activeFilter)) && (`${post.title} ${displayTitle(post)} ${post.category} ${post.summary || ''}`).toLocaleLowerCase().includes(search));
-  $('#post-list').innerHTML = list.length ? list.slice(0, visiblePosts).map((post,index) => `<a class="post-row" style="--ink-order:${index % 8}" href="blog.html?post=${encodeURIComponent(post.slug)}" aria-label="Read ${escapeHtml(displayTitle(post))}"><span class="post-index">${String(index+1).padStart(2,'0')}</span><span class="post-text"><small>${escapeHtml(displayCategory(post.category))} · ${escapeHtml(post.date)}</small><strong lang="${/[가-힣]/.test(displayTitle(post)) ? 'ko' : 'en'}">${escapeHtml(displayTitle(post))}</strong></span><span class="post-arrow">↗</span></a>`).join('') : '<div class="empty-posts">No matching notes.</div>';
-  $('#post-count').textContent = `${list.length} public notes`;
+  const matchesFilter = post => activeFilter === 'all' || (activeFilter === 'saved' ? window.fieldNotes.isSaved(post.slug) : post.category === (activeFilter === 'tech' ? '블로그/기술문서' : activeFilter));
+  const list = content.posts.filter(post => matchesFilter(post) && (`${post.title} ${post.category} ${post.summary || ''}`).toLocaleLowerCase().includes(search));
+  $('#post-list').innerHTML = list.length ? list.slice(0, visiblePosts).map((post,index) => {
+    const saved = window.fieldNotes.isSaved(post.slug);
+    const progress = window.fieldNotes.getProgress(post.slug);
+    return `<div class="post-item" style="--ink-order:${index % 8}"><a class="post-row" style="--ink-order:${index % 8}" href="blog.html?post=${encodeURIComponent(post.slug)}" aria-label="Read ${escapeHtml(displayTitle(post))}"><span class="post-index">${String(index+1).padStart(2,'0')}</span><span class="post-text"><small>${escapeHtml(displayCategory(post.category))} · ${escapeHtml(post.date)}</small><strong lang="${/[가-힣]/.test(displayTitle(post)) ? 'ko' : 'en'}">${escapeHtml(displayTitle(post))}</strong>${progress > 0 ? `<span class="post-progress">${progress >= 95 ? 'READ' : `${progress}% READ`}</span>` : ''}</span><span class="post-arrow">↗</span></a><button class="post-save" type="button" data-save-post="${escapeHtml(post.slug)}" aria-pressed="${saved}" aria-label="${saved ? 'Remove saved note' : 'Save note'}: ${escapeHtml(displayTitle(post))}" title="${saved ? 'Remove from saved' : 'Save this note'}">${saved ? '✦' : '✧'}</button></div>`;
+  }).join('') : `<div class="empty-posts">${activeFilter === 'saved' && !search ? '아직 보관한 기록이 없습니다. 글 옆의 별을 눌러 추가해 보세요.' : 'No matching notes.'}</div>`;
+  $('#post-count').textContent = `${list.length} ${activeFilter === 'saved' ? 'saved' : 'public'} notes`;
   $('#more-posts').hidden = list.length <= visiblePosts;
+}
+function renderJournalDesk() {
+  const counts = {
+    all: content.posts.length,
+    'CTF/Wargame': content.posts.filter(post => post.category === 'CTF/Wargame').length,
+    tech: content.posts.filter(post => post.category === '블로그/기술문서').length,
+    '논문/컨퍼런스': content.posts.filter(post => post.category === '논문/컨퍼런스').length,
+    saved: content.posts.filter(post => window.fieldNotes.isSaved(post.slug)).length
+  };
+  Object.entries(counts).forEach(([key, count]) => { $(`[data-count="${key}"]`).textContent = count; });
+  const last = content.posts.find(post => post.slug === window.fieldNotes.getLast());
+  const progress = last && window.fieldNotes.getProgress(last.slug);
+  $('#journal-resume').hidden = !last || !progress || progress >= 95;
+  if (last && progress && progress < 95) {
+    $('#journal-resume-title').textContent = last.title;
+    $('#journal-resume-link').href = `blog.html?post=${encodeURIComponent(last.slug)}`;
+    $('#journal-resume-link').textContent = `CONTINUE AT ${progress}% ↗`;
+  }
 }
 $('#post-search').addEventListener('input', () => { visiblePosts=6; renderPosts(); });
 $$('.filter').forEach(button => button.addEventListener('click', () => {
@@ -125,6 +148,15 @@ $$('.filter').forEach(button => button.addEventListener('click', () => {
 }));
 $('#more-posts').addEventListener('click', () => { visiblePosts+=6; renderPosts(); });
 $('#post-list').addEventListener('click', event => {
+  const save = event.target.closest('[data-save-post]');
+  if (save) {
+    const slug = save.dataset.savePost;
+    window.fieldNotes.toggleSaved(slug);
+    renderJournalDesk();
+    renderPosts();
+    $('#post-list').querySelectorAll('[data-save-post]').forEach(button => { if (button.dataset.savePost === slug) button.focus(); });
+    return;
+  }
   const link=event.target.closest('a.post-row');
   if(!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0 || reducedMotion.matches) return;
   event.preventDefault();
@@ -160,7 +192,7 @@ async function loadContent() {
   try {
     const response=await fetch('content.json'); if(!response.ok) throw Error('content');
     content=await response.json();
-    renderPosts(); renderCalendar();
+    renderJournalDesk(); renderPosts(); renderCalendar();
     if(content.now){ $('#now-date').textContent=dateFormat.format(new Date(content.now.created_at)); $('#now-text').textContent=content.now.content; }
   } catch {
     $('#post-list').innerHTML='<div class="empty-posts">기록을 불러오지 못했습니다.</div>';
@@ -168,3 +200,7 @@ async function loadContent() {
   }
 }
 loadContent();
+window.addEventListener('storage', event => {
+  if (event.key !== 'cedrai-field-notes-v1') return;
+  renderJournalDesk(); renderPosts();
+});
